@@ -17,12 +17,29 @@ const { width, height } = Dimensions.get("window");
 
 export default function VideoPage() {
   const [playing, setPlaying] = React.useState(false);
+  const [videoAttr, setVideoAttr] = React.useState({
+    currentSeek: 0,
+    volumeBar: 0,
+    volume: 0,
+    totalDurationOfVideo: 0,
+    muted: false,
+    isLooping: false,
+  });
   const playerRef = React.useRef();
+  const handleVolumeChange = (e) => {
+    setVideoAttr({ ...videoAttr, volume: e / 100, volumeBar: e });
+  };
+  const handleOnProgress = (e) => {
+    console.log(e);
+    alert(e);
+  };
+  const handleSeekChange = (e) => {
+    alert(e);
+  };
 
   const onStateChange = React.useCallback((state) => {
     if (state === "ended") {
       setPlaying(false);
-      Alert.alert("video has finished playing!");
     }
   }, []);
   const togglePlaying = React.useCallback(() => {
@@ -36,7 +53,7 @@ export default function VideoPage() {
         <View
           style={{
             position: "absolute",
-            height: 60,
+            height: "100%",
             width: "100%",
             backgroundColor: "transparent",
             top: 0,
@@ -48,14 +65,66 @@ export default function VideoPage() {
             zIndex: 2,
           }}></View>
         <YoutubePlayer
-          height={300}
+          height={250}
           ref={playerRef}
           play={playing}
-          videoId={"iee2TATGMyI"}
+          muted={videoAttr.muted}
+          videoId={"TlB_eWDSMt4"}
           onChangeState={onStateChange}
+          onProgress={(e) => handleOnProgress(e)}
         />
-        <Button title={playing ? "pause" : "play"} onPress={togglePlaying} />
       </View>
+      {/* <Button title={"Progress"} onPress={handleOnProgress} />
+      <Button title={"volume"} onPress={handleVolumeChange} />
+      <Button title={"seekChange"} onPress={handleSeekChange} /> */}
+      <Button title={playing ? "pause" : "play"} onPress={togglePlaying} />
+      {/* start */}
+      <View>
+        <Button
+          title={videoAttr.isLooping ? "Looping" : "Not Looping"}
+          color={videoAttr.isLooping ? "green" : "red"}
+          onPress={() => {
+            setVideoAttr(() => ({
+              ...videoAttr,
+              isLooping: !videoAttr.isLooping,
+            }));
+          }}
+        />
+      </View>
+
+      {/* Go To Specific time in played video with seekTo() */}
+      <View>
+        <Button
+          title="15 Seconds"
+          onPress={() => {
+            if (playerRef.current) {
+              playerRef.current?.seekTo(15);
+            }
+          }}
+        />
+        <Text> </Text>
+        <Button
+          title="2 Minutes"
+          onPress={() => {
+            if (playerRef.current) {
+              playerRef.current?.seekTo(2 * 60);
+            }
+          }}
+        />
+        <Text> </Text>
+        <Button
+          title="15 Minutes"
+          onPress={() => {
+            playerRef.current?.getCurrentTime().then((e) => {
+              if (playerRef.current) {
+                playerRef.current?.seekTo(e + 15 * 60);
+              }
+            });
+          }}
+        />
+      </View>
+
+      {/* End */}
 
       <Chapters
         color="#fde6e6"
