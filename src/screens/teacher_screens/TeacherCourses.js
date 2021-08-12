@@ -7,13 +7,14 @@ import {
   ImageBackground,
 } from "react-native";
 import { Modalize } from "react-native-modalize";
-import CourseList from "../container/CourseList";
+import CourseList from "../../container/CourseList";
 import { useNavigation } from "@react-navigation/native";
+import AddBtn from "../../components/AddBtn";
 
-export default function Cources({ navigation }) {
+export default function TeacherCourses({ navigation }) {
   return (
     <ImageBackground
-      source={require("../images/cat.png")}
+      source={require("../../images/cat.png")}
       style={{ width: "100%", height: "100%" }}>
       <View
         style={{
@@ -22,7 +23,7 @@ export default function Cources({ navigation }) {
           paddingHorizontal: 20,
         }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Home")}
+          onPress={() => navigation.navigate("TeacherHome")}
           style={{
             paddingHorizontal: 10,
             paddingVertical: 13,
@@ -31,7 +32,7 @@ export default function Cources({ navigation }) {
             backgroundColor: "#8bbcdb",
           }}>
           <Image
-            source={require("../images/a1.png")}
+            source={require("../../images/a1.png")}
             style={{ width: 20, height: 15 }}
           />
         </TouchableOpacity>
@@ -45,7 +46,7 @@ export default function Cources({ navigation }) {
             marginLeft: 240,
           }}>
           <Image
-            source={require("../images/hum.png")}
+            source={require("../../images/hum.png")}
             style={{ height: 15, width: 20 }}
           />
         </View>
@@ -60,8 +61,17 @@ export default function Cources({ navigation }) {
           textAlign: "center",
           marginTop: 34,
         }}>
-        UI/UX Cources
+        Physics 21
       </Text>
+      <View
+        style={{
+          width: "100%",
+          flexDirection: "row",
+          justifyContent: "center",
+          marginTop: 34,
+        }}>
+        <AddBtn title="Add new Lesson" />
+      </View>
 
       <Modalize
         handleStyle={{
@@ -78,52 +88,52 @@ export default function Cources({ navigation }) {
         <View style={{ marginTop: 40 }}>
           <CourseList
             onPress={() => navigation.navigate("Xd")}
-            img={require("../images/xd.png")}
+            img={require("../../images/xd.png")}
             title="Mechanics 1"
             bg="#fdddf3"
-            onPress={() => navigation.navigate("Lessons")}
+            onPress={() => navigation.navigate("TeacherLessons")}
           />
           <CourseList
-            img={require("../images/sketch.png")}
+            img={require("../../images/sketch.png")}
             title="Sketch shortcuts and tricks"
             bg="#fef8e3"
             title="Mechanics 1"
-            onPress={() => navigation.navigate("Lessons")}
+            onPress={() => navigation.navigate("TeacherLessons")}
           />
           <CourseList
-            img={require("../images/ae.png")}
+            img={require("../../images/ae.png")}
             title="UI Motion Design in After Effects"
             bg="#fcf2ff"
             title="Mechanics 1"
-            onPress={() => navigation.navigate("Lessons")}
+            onPress={() => navigation.navigate("TeacherLessons")}
           />
           <CourseList
-            img={require("../images/f.png")}
+            img={require("../../images/f.png")}
             title="Figma Essentials"
             bg="#fff0ee"
             title="Mechanics 1"
-            onPress={() => navigation.navigate("Lessons")}
+            onPress={() => navigation.navigate("TeacherLessons")}
           />
           <CourseList
-            img={require("../images/ps.png")}
+            img={require("../../images/ps.png")}
             title="Adobe Photoshop. Retouching"
             bg="#fdddf3"
             title="Mechanics 1"
-            onPress={() => navigation.navigate("Lessons")}
+            onPress={() => navigation.navigate("TeacherLessons")}
           />
           <CourseList
-            img={require("../images/sketch.png")}
+            img={require("../../images/sketch.png")}
             title="Sketch shortcuts and tricks"
             bg="#fef8e3"
             title="Mechanics 1"
-            onPress={() => navigation.navigate("Lessons")}
+            onPress={() => navigation.navigate("TeacherLessons")}
           />
           <CourseList
-            img={require("../images/ae.png")}
+            img={require("../../images/ae.png")}
             title="UI Motion Design in After Effects"
             bg="#fcf2ff"
             title="Mechanics 1"
-            onPress={() => navigation.navigate("Lessons")}
+            onPress={() => navigation.navigate("TeacherLessons")}
           />
         </View>
       </Modalize>

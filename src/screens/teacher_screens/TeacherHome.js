@@ -7,13 +7,14 @@ import {
   Image,
 } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
-import Header from "../container/Header";
-import CourseList from "../container/CourseList";
+import Header from "../../container/Header";
+import CourseList from "../../container/CourseList";
+import AddBtn from "../../components/AddBtn";
 
 export default function Home({ navigation }) {
   return (
     <ImageBackground
-      source={require("../images/Home.png")}
+      source={require("../../images/Home.png")}
       style={{ width: "100%", height: "100%" }}>
       <ScrollView>
         <Header />
@@ -25,7 +26,7 @@ export default function Home({ navigation }) {
             fontFamily: "Bold",
             color: "#AE5151",
           }}>
-          Welcome back student
+          Welcome back Teacher
         </Text>
 
         {/* <View
@@ -49,7 +50,7 @@ export default function Home({ navigation }) {
               }}
             />
             <Image
-              source={require("../images/sear.png")}
+              source={require("../../images/sear.png")}
               style={{ height: 14, width: 14 }}
             />
           </View> */}
@@ -91,66 +92,76 @@ export default function Home({ navigation }) {
                   fontFamily: "Bold",
                   fontSize: 12,
                 }}>
-                Change Teacher
+                Add Notice
               </Text>
               <Image
-                source={require("../images/a3.png")}
+                source={require("../../images/a3.png")}
                 style={{ marginLeft: 20, width: 8, height: 8 }}
               />
             </TouchableOpacity>
           </View>
           <Image
-            source={require("../images/undraw.png")}
+            source={require("../../images/undraw.png")}
             style={{ marginLeft: -80, marginTop: 35 }}
           />
         </View>
-        <Text
+        <View
           style={{
-            color: "#345c74",
-            fontFamily: "Bold",
-            fontSize: 20,
+            flexDirection: "row",
             paddingHorizontal: 20,
             marginTop: 20,
             marginBottom: 10,
+            justifyContent: "space-between",
+            alignItems: "center",
           }}>
-          My classes
-        </Text>
+          <Text
+            style={{
+              color: "#345c74",
+              fontFamily: "Bold",
+              fontSize: 20,
+            }}>
+            My classes
+          </Text>
+          <TouchableOpacity opacity={0.5}>
+            <AddBtn title="Add new Class" />
+          </TouchableOpacity>
+        </View>
 
         <CourseList
-          img={require("../images/xd.png")}
+          img={require("../../images/xd.png")}
           title="Physics 20 batch"
           bg="#fdddf3"
-          onPress={() => navigation.navigate("Courses")}
+          onPress={() => navigation.navigate("TeacherCourses")}
         />
         <CourseList
-          img={require("../images/sketch.png")}
+          img={require("../../images/sketch.png")}
           title="Revision physics 20 batch"
           bg="#fef8e3"
-          onPress={() => navigation.navigate("Courses")}
+          onPress={() => navigation.navigate("TeacherCourses")}
         />
         <CourseList
-          img={require("../images/sketch.png")}
+          img={require("../../images/sketch.png")}
           title="Revision physics 20 batch"
           bg="#fef8e3"
-          onPress={() => navigation.navigate("Courses")}
+          onPress={() => navigation.navigate("TeacherCourses")}
         />
         <CourseList
-          img={require("../images/sketch.png")}
+          img={require("../../images/sketch.png")}
           title="Revision physics 20 batch"
           bg="#fef8e3"
-          onPress={() => navigation.navigate("Courses")}
+          onPress={() => navigation.navigate("TeacherCourses")}
         />
         <CourseList
-          img={require("../images/sketch.png")}
+          img={require("../../images/sketch.png")}
           title="Revision physics 20 batch"
           bg="#fef8e3"
-          onPress={() => navigation.navigate("Courses")}
+          onPress={() => navigation.navigate("TeacherCourses")}
         />
         <CourseList
-          img={require("../images/sketch.png")}
+          img={require("../../images/sketch.png")}
           title="Revision physics 20 batch"
           bg="#fef8e3"
-          onPress={() => navigation.navigate("Courses")}
+          onPress={() => navigation.navigate("TeacherCourses")}
         />
       </ScrollView>
     </ImageBackground>

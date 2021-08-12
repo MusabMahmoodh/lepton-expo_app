@@ -74,7 +74,7 @@ export default function TeacherLogin({ navigation }) {
       </View>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("TeacherHome")}
         activeOpacity={0.5}
         style={{
           marginHorizontal: 55,

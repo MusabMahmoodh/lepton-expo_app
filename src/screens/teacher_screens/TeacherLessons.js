@@ -7,13 +7,14 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Modalize } from "react-native-modalize";
-import Chapters from "../screens/Chapters";
+import AddBtn from "../../components/AddBtn";
+import Chapters from "../../screens/Chapters";
 
 export default class Xd extends React.Component {
   render() {
     return (
       <ImageBackground
-        source={require("../images/crs.png")}
+        source={require("../../images/crs.png")}
         style={{ width: "100%", height: "100%" }}>
         <View
           style={{
@@ -22,7 +23,7 @@ export default class Xd extends React.Component {
             paddingHorizontal: 20,
           }}>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("Courses")}
+            onPress={() => this.props.navigation.navigate("TeacherCourses")}
             style={{
               paddingHorizontal: 10,
               paddingVertical: 13,
@@ -31,7 +32,7 @@ export default class Xd extends React.Component {
               backgroundColor: "#9a3c7e",
             }}>
             <Image
-              source={require("../images/a1.png")}
+              source={require("../../images/a1.png")}
               style={{ height: 15, width: 20 }}
             />
           </TouchableOpacity>
@@ -45,13 +46,13 @@ export default class Xd extends React.Component {
               marginLeft: 240,
             }}>
             <Image
-              source={require("../images/hum.png")}
+              source={require("../../images/hum.png")}
               style={{ height: 15, width: 20 }}
             />
           </View>
         </View>
         <Image
-          source={require("../images/logo.png")}
+          source={require("../../images/logo.png")}
           style={{
             height: 35,
             width: 35,
@@ -81,7 +82,15 @@ export default class Xd extends React.Component {
           }}>
           Part 1
         </Text>
-
+        <View
+          style={{
+            width: "100%",
+            flexDirection: "row",
+            justifyContent: "center",
+            marginTop: 34,
+          }}>
+          <AddBtn title="Add new Item" />
+        </View>
         <Modalize
           handleStyle={{
             marginTop: 30,
@@ -101,7 +110,7 @@ export default class Xd extends React.Component {
               marginTop: 40,
             }}>
             <Image
-              source={require("../images/2.jpg")}
+              source={require("../../images/2.jpg")}
               style={{
                 height: 50,
                 width: 50,
@@ -137,7 +146,7 @@ export default class Xd extends React.Component {
                 height: 40,
                 borderRadius: 40,
               }}>
-              <Image source={require("../images/a2.png")} />
+              <Image source={require("../../images/a2.png")} />
             </View>
           </View>
           <View>
@@ -199,7 +208,7 @@ export default class Xd extends React.Component {
               }}>
               Resume last lesson
             </Text>
-            <Image source={require("../images/a2.png")} />
+            <Image source={require("../../images/a2.png")} />
           </View>
         </Modalize>
       </ImageBackground>
