@@ -18,16 +18,16 @@ const MenuPopUp = () => (
       paddingBottom: 60,
       paddingTop: 0,
     }}>
-    <Menu onSelect={(value) => alert(`Selected number: ${value}`)}>
+    <Menu onSelect={(value) => value && alert(`Selected number: ${value}`)}>
       <MenuTrigger>
-        <AntDesign name="antdesign" size={24} color="black" />
+        <AntDesign name="menuunfold" size={24} color="black" />
       </MenuTrigger>
       <MenuOptions>
         <MenuOption value={1} text="One" />
         <MenuOption value={2}>
           <Text style={{ color: "red" }}>Two</Text>
         </MenuOption>
-        <MenuOption value={3} disabled={true} text="Three" />
+        <MenuOption text="Close" />
       </MenuOptions>
     </Menu>
   </MenuProvider>

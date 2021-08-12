@@ -14,13 +14,13 @@ const Header = () => {
       <View
         style={{
           paddingHorizontal: 10,
-          paddingVertical: 12,
+          paddingVertical: 0,
           borderRadius: 10,
           marginTop: 30,
         }}>
         <Image
           source={require("../images/logo.png")}
-          style={{ height: 15, width: 20 }}
+          style={{ height: 60, width: 40 }}
         />
       </View>
       <View
