@@ -7,15 +7,14 @@ import {
   TextInput,
   TouchableOpacity,
   Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
   KeyboardAvoidingView,
   StyleSheet,
-  ScrollView,
 } from "react-native";
+
 import Icon from "@expo/vector-icons/AntDesign";
 import { AntDesign } from "@expo/vector-icons";
 import { Modalize } from "react-native-modalize";
+
 export default function TeacherAddClass({ navigation }) {
   return (
     <KeyboardAvoidingView
@@ -27,7 +26,7 @@ export default function TeacherAddClass({ navigation }) {
           fontFamily: "SemiBold",
           alignSelf: "center",
           marginBottom: 40,
-          marginTop: "30%",
+          marginTop: 40,
           color: "white",
         }}>
         Add new Class
@@ -42,7 +41,7 @@ export default function TeacherAddClass({ navigation }) {
           borderTopLeftRadius: 60,
           borderTopRightRadius: 60,
         }}
-        alwaysOpen={500}
+        alwaysOpen={600}
         scrollViewProps={{ showsVerticalScrollIndicator: false }}>
         <View style={styles.inner}>
           <View
@@ -77,11 +76,10 @@ export default function TeacherAddClass({ navigation }) {
               marginTop: 5,
               marginHorizontal: 50,
             }}>
-            <Text>Description</Text>
+            <Text>Short Description</Text>
             <View
               style={{
                 flexDirection: "row",
-                alignItems: "center",
 
                 borderWidth: 2,
 
@@ -91,11 +89,13 @@ export default function TeacherAddClass({ navigation }) {
                 paddingVertical: 2,
                 marginTop: 5,
               }}>
-              <Icon name="mail" color="#00716F" size={24} />
-
               <TextInput
+                multiline={true}
+                numberOfLines={4}
                 style={{ paddingHorizontal: 10, width: 200 }}
-                placeholder="Class Name"
+                placeholder="Short description about your class"
+                // onChangeText={(text) => this.setState({text})}
+                // value={this.state.text}/>
               />
             </View>
           </View>
@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#00716F",
+    paddingTop: 50,
   },
   scrollView: {
     backgroundColor: "white",
