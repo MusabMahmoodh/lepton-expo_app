@@ -7,6 +7,7 @@ import {
   Image,
 } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
+import Header from "../container/Header";
 import CourseList from "../screens/CourseList";
 
 export default class Home extends React.Component {
@@ -16,26 +17,7 @@ export default class Home extends React.Component {
         source={require("../images/Home.png")}
         style={{ width: "100%", height: "100%" }}>
         <ScrollView>
-          <View
-            style={{
-              width: "100%",
-              alignItems: "flex-end",
-              paddingHorizontal: 20,
-            }}>
-            <View
-              style={{
-                paddingHorizontal: 10,
-                paddingVertical: 12,
-                borderRadius: 10,
-                marginTop: 30,
-                backgroundColor: "#d1a0a7",
-              }}>
-              <Image
-                source={require("../images/hum.png")}
-                style={{ height: 15, width: 20 }}
-              />
-            </View>
-          </View>
+          <Header />
           <Text
             style={{
               paddingHorizontal: 20,
@@ -47,7 +29,7 @@ export default class Home extends React.Component {
             Welcome back student
           </Text>
 
-          <View
+          {/* <View
             style={{
               flexDirection: "row",
               alignItems: "center",
@@ -71,7 +53,7 @@ export default class Home extends React.Component {
               source={require("../images/sear.png")}
               style={{ height: 14, width: 14 }}
             />
-          </View>
+          </View> */}
           <View
             style={{
               flexDirection: "row",
@@ -91,7 +73,7 @@ export default class Home extends React.Component {
                   width: 250,
                   paddingRight: 100,
                 }}>
-                Start learning new Staff
+                Class Anouncement here
               </Text>
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate("Cources")}

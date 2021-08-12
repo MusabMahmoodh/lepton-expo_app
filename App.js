@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import AppLoading from "expo-app-loading";
+
 import { useFonts, Inter_900Black } from "@expo-google-fonts/inter";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -30,6 +31,7 @@ export default function App() {
             headerShown: false,
           }}>
           <Stack.Screen name="Login" component={Login} />
+
           <Stack.Screen name="Home" component={Home} />
 
           <Stack.Screen name="Cources" component={Cources} />
