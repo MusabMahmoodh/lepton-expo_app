@@ -71,16 +71,11 @@ export default function TeacherClasses({ navigation }) {
           justifyContent: "center",
           marginTop: 34,
         }}>
-        <AddBtn title="Add new Lesson" />
-      </View>
-      <View
-        style={{
-          width: "100%",
-          flexDirection: "row",
-          justifyContent: "center",
-          marginTop: 4,
-        }}>
-        <ViewBtn title="View class students" />
+        <TouchableOpacity
+          opacity={0.5}
+          onPress={() => navigation.navigate("TeacherAddLesson")}>
+          <AddBtn title="Add new Lesson" />
+        </TouchableOpacity>
       </View>
 
       <Modalize

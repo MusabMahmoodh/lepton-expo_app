@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Modalize } from "react-native-modalize";
 import AddBtn from "../../components/AddBtn";
+import ViewBtn from "../../components/ViewBtn";
 import Chapters from "../../screens/Chapters";
 
 export default class Xd extends React.Component {
@@ -51,15 +52,7 @@ export default class Xd extends React.Component {
             />
           </View>
         </View>
-        <Image
-          source={require("../../images/logo.png")}
-          style={{
-            height: 35,
-            width: 35,
-            alignSelf: "center",
-            marginTop: 20,
-          }}
-        />
+
         <Text
           style={{
             color: "#FFF",
@@ -91,6 +84,19 @@ export default class Xd extends React.Component {
           }}>
           <AddBtn title="Add new Item" />
         </View>
+        <View
+          style={{
+            width: "100%",
+            flexDirection: "row",
+            justifyContent: "center",
+            marginTop: 4,
+          }}>
+          <TouchableOpacity
+            opacity={0.5}
+            onPress={() => navigation.navigate("TeacherViewStudent")}>
+            <ViewBtn title="View students taking lesson" />
+          </TouchableOpacity>
+        </View>
         <Modalize
           handleStyle={{
             marginTop: 30,
@@ -101,7 +107,7 @@ export default class Xd extends React.Component {
             borderTopLeftRadius: 60,
             borderTopRightRadius: 60,
           }}
-          alwaysOpen={510}
+          alwaysOpen={500}
           scrollViewProps={{ showsVerticalScrollIndicator: false }}>
           <View
             style={{
@@ -154,7 +160,7 @@ export default class Xd extends React.Component {
               num={1}
               color="#fde6e6"
               percent={25}
-              duration="2 hours, 20 minutes"
+              duration="private"
               title="Introduction"
               onPress={() => this.props.navigation.navigate("VideoPage")}
             />
@@ -162,28 +168,28 @@ export default class Xd extends React.Component {
               num={2}
               color="#f9e1fc"
               percent={50}
-              duration="1 hours, 35 minutes"
+              duration="private"
               title="Dynamics"
             />
             <Chapters
               num={3}
               color="#e8f1fd"
               percent={0}
-              duration="2 hours, 20 minutes"
+              duration="private"
               title="Dynamics"
             />
             <Chapters
               num={4}
               color="#e5ffef"
               percent={0}
-              duration="2 hours, 20 minutes"
+              duration="public"
               title="Dynamics"
             />
             <Chapters
               num={5}
               color="#fbfaf6"
               percent={0}
-              duration="0 hours, 30 minutes"
+              duration="private"
               title="Conclusion"
             />
           </View>
