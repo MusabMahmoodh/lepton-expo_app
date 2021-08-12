@@ -10,8 +10,9 @@ import { Modalize } from "react-native-modalize";
 import CourseList from "../../container/CourseList";
 import { useNavigation } from "@react-navigation/native";
 import AddBtn from "../../components/AddBtn";
+import ViewBtn from "../../components/ViewBtn";
 
-export default function TeacherCourses({ navigation }) {
+export default function TeacherClasses({ navigation }) {
   return (
     <ImageBackground
       source={require("../../images/cat.png")}
@@ -71,6 +72,15 @@ export default function TeacherCourses({ navigation }) {
           marginTop: 34,
         }}>
         <AddBtn title="Add new Lesson" />
+      </View>
+      <View
+        style={{
+          width: "100%",
+          flexDirection: "row",
+          justifyContent: "center",
+          marginTop: 4,
+        }}>
+        <ViewBtn title="View class students" />
       </View>
 
       <Modalize

@@ -23,7 +23,7 @@ export default class Xd extends React.Component {
             paddingHorizontal: 20,
           }}>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("TeacherCourses")}
+            onPress={() => this.props.navigation.navigate("TeacherClasses")}
             style={{
               paddingHorizontal: 10,
               paddingVertical: 13,

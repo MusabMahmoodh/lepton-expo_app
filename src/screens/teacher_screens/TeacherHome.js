@@ -10,8 +10,10 @@ import { ScrollView, TextInput } from "react-native-gesture-handler";
 import Header from "../../container/Header";
 import CourseList from "../../container/CourseList";
 import AddBtn from "../../components/AddBtn";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { Input } from "react-native-elements";
 
-export default function Home({ navigation }) {
+export default function TeacherHome({ navigation }) {
   return (
     <ImageBackground
       source={require("../../images/Home.png")}
@@ -122,7 +124,9 @@ export default function Home({ navigation }) {
             }}>
             My classes
           </Text>
-          <TouchableOpacity opacity={0.5}>
+          <TouchableOpacity
+            opacity={0.5}
+            onPress={() => navigation.navigate("TeacherAddClass")}>
             <AddBtn title="Add new Class" />
           </TouchableOpacity>
         </View>
@@ -131,37 +135,37 @@ export default function Home({ navigation }) {
           img={require("../../images/xd.png")}
           title="Physics 20 batch"
           bg="#fdddf3"
-          onPress={() => navigation.navigate("TeacherCourses")}
+          onPress={() => navigation.navigate("TeacherClasses")}
         />
         <CourseList
           img={require("../../images/sketch.png")}
           title="Revision physics 20 batch"
           bg="#fef8e3"
-          onPress={() => navigation.navigate("TeacherCourses")}
+          onPress={() => navigation.navigate("TeacherClasses")}
         />
         <CourseList
           img={require("../../images/sketch.png")}
           title="Revision physics 20 batch"
           bg="#fef8e3"
-          onPress={() => navigation.navigate("TeacherCourses")}
+          onPress={() => navigation.navigate("TeacherClasses")}
         />
         <CourseList
           img={require("../../images/sketch.png")}
           title="Revision physics 20 batch"
           bg="#fef8e3"
-          onPress={() => navigation.navigate("TeacherCourses")}
+          onPress={() => navigation.navigate("TeacherClasses")}
         />
         <CourseList
           img={require("../../images/sketch.png")}
           title="Revision physics 20 batch"
           bg="#fef8e3"
-          onPress={() => navigation.navigate("TeacherCourses")}
+          onPress={() => navigation.navigate("TeacherClasses")}
         />
         <CourseList
           img={require("../../images/sketch.png")}
           title="Revision physics 20 batch"
           bg="#fef8e3"
-          onPress={() => navigation.navigate("TeacherCourses")}
+          onPress={() => navigation.navigate("TeacherClasses")}
         />
       </ScrollView>
     </ImageBackground>
