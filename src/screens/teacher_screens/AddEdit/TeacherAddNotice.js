@@ -29,7 +29,7 @@ export default function TeacherAddClass({ navigation }) {
           marginTop: 40,
           color: "white",
         }}>
-        Add new Class
+        Add new Notice
       </Text>
       <Modalize
         handleStyle={{
@@ -49,7 +49,7 @@ export default function TeacherAddClass({ navigation }) {
               marginTop: 50,
               marginHorizontal: 50,
             }}>
-            <Text>Class Name</Text>
+            <Text>Notice Title</Text>
             <View
               style={{
                 flexDirection: "row",
@@ -65,7 +65,7 @@ export default function TeacherAddClass({ navigation }) {
               }}>
               <TextInput
                 style={{ paddingHorizontal: 10, width: 200 }}
-                placeholder="Class Name"
+                placeholder="Notice Title"
               />
             </View>
           </View>
@@ -74,7 +74,7 @@ export default function TeacherAddClass({ navigation }) {
               marginTop: 5,
               marginHorizontal: 50,
             }}>
-            <Text>Short Description</Text>
+            <Text>Notice Description</Text>
             <View
               style={{
                 flexDirection: "row",
@@ -91,7 +91,7 @@ export default function TeacherAddClass({ navigation }) {
                 multiline={true}
                 numberOfLines={4}
                 style={{ paddingHorizontal: 10, width: 200 }}
-                placeholder="Short description about your class"
+                placeholder="Notice description"
                 // onChangeText={(text) => this.setState({text})}
                 // value={this.state.text}/>
               />
@@ -171,7 +171,7 @@ export default function TeacherAddClass({ navigation }) {
               fontFamily: "SemiBold",
               paddingVertical: 10,
             }}>
-            How to add?
+            How to add notice?
           </Text>
         </View>
       </Modalize>

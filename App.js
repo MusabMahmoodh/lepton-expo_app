@@ -20,6 +20,7 @@ import TeacherHome from "./src/screens/teacher_screens/TeacherHome";
 import TeacherClasses from "./src/screens/teacher_screens/TeacherClasses";
 import TeacherLessons from "./src/screens/teacher_screens/TeacherLessons";
 import TeacherAddClass from "./src/screens/teacher_screens/AddEdit/TeacherAddClass";
+import TeacherAddNotice from "./src/screens/teacher_screens/AddEdit/TeacherAddNotice";
 const Stack = createNativeStackNavigator();
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -52,6 +53,10 @@ export default function App() {
             <Stack.Screen name="TeacherClasses" component={TeacherClasses} />
             <Stack.Screen name="TeacherLessons" component={TeacherLessons} />
             <Stack.Screen name="TeacherAddClass" component={TeacherAddClass} />
+            <Stack.Screen
+              name="TeacherAddNotice"
+              component={TeacherAddNotice}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </ThemeProvider>

@@ -78,6 +78,7 @@ export default function TeacherHome({ navigation }) {
               Class Announcements here
             </Text>
             <TouchableOpacity
+              onPress={() => navigation.navigate("TeacherAddNotice")}
               style={{
                 flexDirection: "row",
                 backgroundColor: "#f58084",
