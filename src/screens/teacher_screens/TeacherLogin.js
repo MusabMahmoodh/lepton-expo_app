@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import Icon from "@expo/vector-icons/AntDesign";
 import { AntDesign } from "@expo/vector-icons";
-export default function Login({ navigation }) {
+export default function TeacherLogin({ navigation }) {
   return (
     <View
       style={{
@@ -13,14 +13,14 @@ export default function Login({ navigation }) {
         alignItems: "center",
         flex: 1,
       }}>
-      <Image source={require("../images/logo.png")} />
+      <Image source={require("../../images/logo.png")} />
       <Text
         style={{
           fontSize: 30,
           fontFamily: "SemiBold",
           alignSelf: "center",
         }}>
-        Lepton for students
+        Lepton for Teachers
       </Text>
 
       <Text
@@ -50,28 +50,10 @@ export default function Login({ navigation }) {
 
         <TextInput
           style={{ paddingHorizontal: 10, width: 200 }}
-          placeholder="Class ID"
+          placeholder="Teacher ID"
         />
       </View>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          marginHorizontal: 55,
-          borderWidth: 2,
-          marginTop: 15,
-          paddingHorizontal: 10,
-          borderColor: "#00716F",
-          borderRadius: 23,
-          paddingVertical: 2,
-        }}>
-        <Icon name="mail" color="#00716F" size={24} />
 
-        <TextInput
-          style={{ paddingHorizontal: 10, width: 200 }}
-          placeholder="Student ID"
-        />
-      </View>
       <View
         style={{
           flexDirection: "row",
@@ -87,7 +69,7 @@ export default function Login({ navigation }) {
         <Icon name="mail" color="#00716F" size={24} />
         <TextInput
           style={{ paddingHorizontal: 10, width: 200 }}
-          placeholder="Student Password"
+          placeholder="Password"
         />
       </View>
 
@@ -113,7 +95,7 @@ export default function Login({ navigation }) {
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate("TeacherLogin")}
+        onPress={() => navigation.navigate("Login")}
         activeOpacity={0.5}
         style={{
           marginHorizontal: 55,
@@ -137,7 +119,7 @@ export default function Login({ navigation }) {
             color: "#00716F",
             fontFamily: "SemiBold",
           }}>
-          Teacher Login
+          Student Login
         </Text>
         <Text
           style={{
@@ -163,7 +145,7 @@ export default function Login({ navigation }) {
           fontFamily: "SemiBold",
           paddingVertical: 10,
         }}>
-        New Student?
+        New Teacher?
       </Text>
     </View>
   );

@@ -13,6 +13,8 @@ import Courses from "./src/screens/Cources";
 import Lessons from "./src/screens/Xd";
 import VideoPage from "./src/screens/VideoPage";
 import Login from "./src/screens/Login";
+//teacher screens
+import TeacherLogin from "./src/screens/teacher_screens/TeacherLogin";
 const Stack = createNativeStackNavigator();
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -39,6 +41,7 @@ export default function App() {
           <Stack.Screen name="Lessons" component={Lessons} />
 
           <Stack.Screen name="VideoPage" component={VideoPage} />
+          <Stack.Screen name="TeacherLogin" component={TeacherLogin} />
         </Stack.Navigator>
       </NavigationContainer>
     );
