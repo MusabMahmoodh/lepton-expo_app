@@ -15,10 +15,11 @@ import { logout } from "../actions/auth";
 export default function Home({ navigation }) {
   const auth = useSelector((state) => state.auth);
 
-  if (!auth.user) {
-    return null;
-  }
-  const { first_name, last_name } = auth.user;
+  // if (!auth.user) {
+  //   navigation.navigate("Login");
+  //   return null;
+  // }
+  // const { first_name, last_name } = auth.user;
   const dispatch = useDispatch();
   const { errorMessageLogout } = auth;
   //   <View>

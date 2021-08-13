@@ -1,13 +1,18 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button, ThemeProvider } from "react-native-elements";
 import AppLoading from "expo-app-loading";
-import { useSelector } from "react-redux";
-import { useFonts, Inter_900Black } from "@expo-google-fonts/inter";
 
+// import { useFonts, Inter_900Black } from "@expo-google-fonts/inter";
+
+import { loggedIn } from "./src/actions/auth";
+import { getAuthAsyncStorage } from "./src/services/getAuthAsyncStorage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Provider } from "react-redux";
+
+import store from "./src/reducers";
 
 import Home from "./src/screens/Home";
 import Courses from "./src/screens/Cources";
@@ -26,31 +31,46 @@ import TeacherViewStudent from "./src/screens/teacher_screens/view/TeacherViewSt
 import TeacherAddItem from "./src/screens/teacher_screens/AddEdit/TeacherAddItem";
 const Stack = createNativeStackNavigator();
 export default function App() {
-  const auth = useSelector((state) => state.auth);
-  const userToken = auth.user ? auth.user.token : null;
+  const [isLoading, setIsLoadingFromAsyncStorage] = useState(true);
+  useEffect(() => {
+    const load = async () => {
+      await setIsLoadingFromAsyncStorage(true);
+      const userStorage = await getAuthAsyncStorage();
+      if (userStorage.user && userStorage.token) {
+        await store.dispatch(
+          loggedIn({
+            user: userStorage.user,
+            token: userStorage.token,
+          })
+        );
+      }
+      await setIsLoadingFromAsyncStorage(false);
+    };
+    load();
+  }, []);
 
-  let [fontsLoaded] = useFonts({
-    Bold: require("./src/fonts/Montserrat-ExtraBold.otf"),
-    Medium: require("./src/fonts/Montserrat-Medium.otf"),
-    Regular: require("./src/fonts/Montserrat-Regular.otf"),
-  });
+  // let [fontsLoaded] = useFonts({
+  //   Bold: require("./src/fonts/Montserrat-ExtraBold.otf"),
+  //   Medium: require("./src/fonts/Montserrat-Medium.otf"),
+  //   Regular: require("./src/fonts/Montserrat-Regular.otf"),
+  // });
 
-  if (!fontsLoaded) {
+  if (isLoading) {
     return <AppLoading />;
   } else {
     return (
-      <ThemeProvider>
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}>
-            {userToken === null ? (
+      <Provider store={store}>
+        <ThemeProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+              }}>
               <React.Fragment>
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="TeacherLogin" component={TeacherLogin} />
               </React.Fragment>
-            ) : (
+
               <React.Fragment>
                 <Stack.Screen name="Home" component={Home} />
 
@@ -90,10 +110,10 @@ export default function App() {
                   component={TeacherAddItem}
                 />
               </React.Fragment>
-            )}
-          </Stack.Navigator>
-        </NavigationContainer>
-      </ThemeProvider>
+            </Stack.Navigator>
+          </NavigationContainer>
+        </ThemeProvider>
+      </Provider>
     );
   }
 }
