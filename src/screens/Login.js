@@ -2,7 +2,14 @@ import React from "react";
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import Icon from "@expo/vector-icons/AntDesign";
 import { AntDesign } from "@expo/vector-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../actions/auth";
 export default function Login({ navigation }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const auth = useSelector((state) => state.auth);
+  const { errorMessageLogin } = auth;
+  const dispatch = useDispatch();
   return (
     <View
       style={{
@@ -33,6 +40,16 @@ export default function Login({ navigation }) {
         }}>
         -Checkout Education-
       </Text>
+      {errorMessageLogin && (
+        <View style={{ alignItems: "center", marginTop: 20 }}>
+          <Text
+            style={{
+              color: "#ff0000",
+            }}>
+            {errorMessageLogin}
+          </Text>
+        </View>
+      )}
 
       <View
         style={{

@@ -9,8 +9,26 @@ import {
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import Header from "../container/Header";
 import CourseList from "../container/CourseList";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../actions/auth";
 
 export default function Home({ navigation }) {
+  const auth = useSelector((state) => state.auth);
+
+  if (!auth.user) {
+    return null;
+  }
+  const { first_name, last_name } = auth.user;
+  const dispatch = useDispatch();
+  const { errorMessageLogout } = auth;
+  //   <View>
+  //   <Button
+  //     containerStyle={{alignItems: 'center'}}
+  //     loading={auth.loggingOut}
+  //     onPress={() => dispatch(logout())}
+  //     title="Logout"
+  //   />
+  // </View>
   return (
     <ImageBackground
       source={require("../images/Home.png")}
