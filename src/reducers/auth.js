@@ -1,73 +1,50 @@
 import {
-  AUTH_ERR_LOG_IN,
-  AUTH_ERR_LOG_OUT,
-  AUTH_LOGGED_IN,
-  AUTH_LOGGING_IN,
-  AUTH_LOGGING_OUT,
-  AUTH_LOGOUT,
-} from "../constants/auth";
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  TEACHER_LOGIN_SUCCESS,
+  TEACHER_LOGIN_FAIL,
+  TEACHER_LOGOUT,
+  TEACHER_LOGIN_REQUEST,
+} from "../actions/types";
+import { getAuthAsyncStorage } from "../services/getAuthAsyncStorage";
 
-const INITIAL_STATE = {
-  user: null,
-  token: null,
-  loggingIn: false,
-  loggingOut: false,
-  errorMessageLogin: null,
-  errorMessageLogout: null,
-};
+// const user = async () => await getAuthAsyncStorage();
 
-export default function (state = INITIAL_STATE, action) {
-  switch (action.type) {
-    case AUTH_LOGOUT: {
+// const initialState = user
+//   ? { isLoggedIn: true, user }
+//   : { isLoggedIn: false, user: null };
+
+export default function (state = {}, action) {
+  const { type, payload } = action;
+
+  switch (type) {
+    case TEACHER_LOGIN_REQUEST:
       return {
-        ...INITIAL_STATE,
+        isLoggedIn: false,
+        loadingLogin: true,
+        errorLogging: null,
+        loginSuccess: false,
       };
-    }
-
-    case AUTH_LOGGING_IN: {
+    case TEACHER_LOGIN_SUCCESS:
       return {
-        ...state,
-        errorMessageLogin: action.payload ? null : state.errorMessageLogin,
-        errorMessageLogout: null,
-        loggingIn: action.payload,
+        isLoggedIn: true,
+        user: payload,
+        loadingLogin: false,
+        loginSuccess: true,
       };
-    }
-
-    case AUTH_LOGGING_OUT: {
-      return {
-        ...state,
-        errorMessageLogout: action.payload ? null : state.errorMessageLogout,
-        loggingOut: action.payload,
-      };
-    }
-
-    case AUTH_LOGGED_IN: {
-      let { user, token } = action.payload;
+    case TEACHER_LOGIN_FAIL:
       return {
         ...state,
-        user,
-        token,
-        errorMessageLogin: null,
-        loggingIn: false,
+        isLoggedIn: false,
+        user: null,
+        error: payload,
+        loadingLogin: false,
       };
-    }
-
-    case AUTH_ERR_LOG_IN: {
+    case TEACHER_LOGOUT:
       return {
-        ...state,
-        loggingIn: false,
-        errorMessageLogin: action.payload,
+        isLoggedIn: false,
+        user: null,
       };
-    }
-
-    case AUTH_ERR_LOG_OUT: {
-      return {
-        ...state,
-        loggingOut: false,
-        errorMessageLogout: action.payload,
-      };
-    }
-
     default:
       return state;
   }

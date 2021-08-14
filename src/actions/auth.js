@@ -1,70 +1,39 @@
 import {
-  AUTH_ERR_LOG_IN,
-  AUTH_ERR_LOG_OUT,
-  AUTH_LOGGED_IN,
-  AUTH_LOGGING_IN,
-  AUTH_LOGGING_OUT,
-  AUTH_LOGOUT,
-} from "../constants/auth";
-import { navigate } from "../services/navRef";
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  SET_MESSAGE,
+  TEACHER_LOGIN_SUCCESS,
+  TEACHER_LOGIN_FAIL,
+  TEACHER_LOGOUT,
+  TEACHER_LOGIN_REQUEST,
+} from "./types";
+
 import { userService } from "../services/userService";
+import { setAuthAsyncStorage } from "../services/getAuthAsyncStorage";
 
-export const loggingIn = (loggingIn) => ({
-  type: AUTH_LOGGING_IN,
-  payload: loggingIn,
-});
+export const login = (data) => async (dispatch) => {
+  await dispatch({ type: TEACHER_LOGIN_REQUEST });
 
-export const loggedIn = (data) => ({
-  type: AUTH_LOGGED_IN,
-  payload: data,
-});
+  try {
+    const res = await userService.login(data);
+    console.log(res.data.data);
 
-export const errorLogIn = (errorMessage) => ({
-  type: AUTH_ERR_LOG_IN,
-  payload: errorMessage,
-});
-
-export const login = (contact, password) => (dispatch) => {
-  dispatch(loggingIn(true));
-  userService
-    .login(contact, password)
-    .then(async (res) => {
-      await dispatch(loggedIn(res.data));
-      await navigate("TeacherHome");
-    })
-    .catch((err) => {
-      dispatch(errorLogIn("Wrong contact no or password"));
-    })
-    .finally(() => {
-      dispatch(loggingIn(false));
+    await setAuthAsyncStorage(res.data.data);
+    dispatch({
+      type: TEACHER_LOGIN_SUCCESS,
+      payload: res.data.data,
     });
+  } catch (err) {
+    dispatch({
+      type: TEACHER_LOGIN_FAIL,
+      payload: err.response.data.message,
+    });
+  }
 };
+export const logout = () => (dispatch) => {
+  userService.logout();
 
-export const loggedOut = () => ({
-  type: AUTH_LOGOUT,
-});
-
-export const loggingOut = (lOut) => ({
-  type: AUTH_LOGGING_OUT,
-  payload: lOut,
-});
-
-export const errorLogOut = (errorMessage) => ({
-  type: AUTH_ERR_LOG_OUT,
-  payload: errorMessage,
-});
-
-export const logout = () => async (dispatch, getState) => {
-  dispatch(loggingOut(true));
-  await userService
-    .logout(getState)
-    .then((res) => {
-      dispatch(loggedOut());
-    })
-    .catch((err) => {
-      dispatch(errorLogOut("Error logging out."));
-    })
-    .finally(() => {
-      dispatch(loggingOut(false));
-    });
+  dispatch({
+    type: TEACHER_LOGOUT,
+  });
 };

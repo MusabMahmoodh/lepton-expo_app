@@ -1,35 +1,13 @@
 import axios from "axios";
 import { laptonApi } from "../api/api";
 
-import {
-  resetAuthAsyncStorage,
-  setAuthAsyncStorage,
-} from "./getAuthAsyncStorage";
+import { resetAuthAsyncStorage } from "./getAuthAsyncStorage";
+import http from "../http-common";
+const login = (data) => {
+  return http.post(`${laptonApi}/teacher/auth`, data);
+};
 
-async function login(contact, password) {
-  return new Promise((resolve, reject) => {
-    axios
-      .post(`${laptonApi}/teacher`, {
-        contact,
-        password,
-      })
-      .then(async (response) => {
-        console.log("response", response);
-        try {
-          await setAuthAsyncStorage(response);
-          resolve(response);
-        } catch (e) {
-          reject(e);
-        }
-      })
-      .catch((err) => {
-        console.log(err, "error");
-        reject(err);
-      });
-  });
-}
-
-async function logout(getState) {
+async function logout() {
   await resetAuthAsyncStorage();
 }
 

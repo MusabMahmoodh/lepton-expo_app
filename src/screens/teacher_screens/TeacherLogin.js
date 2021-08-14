@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import Icon from "@expo/vector-icons/AntDesign";
 import { AntDesign } from "@expo/vector-icons";
@@ -8,14 +8,20 @@ export default function TeacherLogin({ navigation }) {
   const [contactNo, setContactNo] = useState("");
   const [password, setPassword] = useState("");
   const auth = useSelector((state) => state.auth);
-  const { errorMessageLogin } = auth;
+  const { error: errorMessageLogin, loginSuccess } = auth;
   const dispatch = useDispatch();
 
   const loginHandler = () => {
     if (contactNo.length === 10 && password) {
-      dispatch(login(contactNo, password));
+      dispatch(login({ contact: contactNo, password }));
     }
   };
+  useEffect(() => {
+    if (loginSuccess) {
+      navigation.navigate("TeacherHome");
+    }
+  }, [loginSuccess, errorMessageLogin]);
+
   return (
     <View
       style={{
@@ -46,6 +52,16 @@ export default function TeacherLogin({ navigation }) {
         }}>
         -Checkout Education-
       </Text>
+      {errorMessageLogin && (
+        <View style={{ alignItems: "center", marginTop: 20 }}>
+          <Text
+            style={{
+              color: "#ff0000",
+            }}>
+            {errorMessageLogin}
+          </Text>
+        </View>
+      )}
 
       <View
         style={{
