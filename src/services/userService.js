@@ -1,18 +1,20 @@
 import axios from "axios";
-import { API_URL } from "../config/consatnts";
+import { laptonApi } from "../api/api";
+
 import {
   resetAuthAsyncStorage,
   setAuthAsyncStorage,
 } from "./getAuthAsyncStorage";
 
-function login(username, password) {
+async function login(contact, password) {
   return new Promise((resolve, reject) => {
     axios
-      .post(`${API_URL}/login`, {
-        email: username,
+      .post(`${laptonApi}/teacher`, {
+        contact,
         password,
       })
       .then(async (response) => {
+        console.log("response", response);
         try {
           await setAuthAsyncStorage(response);
           resolve(response);
@@ -21,27 +23,14 @@ function login(username, password) {
         }
       })
       .catch((err) => {
+        console.log(err, "error");
         reject(err);
       });
   });
 }
 
 async function logout(getState) {
-  return new Promise((resolve, reject) => {
-    const currentState = getState();
-    const { token } = currentState.auth;
-    axios
-      .get(`${API_URL}/logout`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      })
-      .then(async (response) => {
-        resolve(response);
-        await resetAuthAsyncStorage();
-      })
-      .catch((err) => reject(err));
-  });
+  await resetAuthAsyncStorage();
 }
 
 export const userService = {

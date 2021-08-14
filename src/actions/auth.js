@@ -24,16 +24,16 @@ export const errorLogIn = (errorMessage) => ({
   payload: errorMessage,
 });
 
-export const login = (username, password) => (dispatch) => {
+export const login = (contact, password) => (dispatch) => {
   dispatch(loggingIn(true));
   userService
-    .login(username, password)
+    .login(contact, password)
     .then(async (res) => {
       await dispatch(loggedIn(res.data));
-      await navigate("Home");
+      await navigate("TeacherHome");
     })
     .catch((err) => {
-      dispatch(errorLogIn("Wrong username or password"));
+      dispatch(errorLogIn("Wrong contact no or password"));
     })
     .finally(() => {
       dispatch(loggingIn(false));

@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import Icon from "@expo/vector-icons/AntDesign";
 import { AntDesign } from "@expo/vector-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../actions/auth";
 export default function TeacherLogin({ navigation }) {
+  const [contactNo, setContactNo] = useState("");
+  const [password, setPassword] = useState("");
+  const auth = useSelector((state) => state.auth);
+  const { errorMessageLogin } = auth;
+  const dispatch = useDispatch();
+
+  const loginHandler = () => {
+    if (contactNo.length === 10 && password) {
+      dispatch(login(contactNo, password));
+    }
+  };
   return (
     <View
       style={{
@@ -50,7 +63,9 @@ export default function TeacherLogin({ navigation }) {
 
         <TextInput
           style={{ paddingHorizontal: 10, width: 200 }}
-          placeholder="Teacher ID"
+          placeholder="Contact No"
+          onChangeText={(text) => setContactNo(text)}
+          value={contactNo}
         />
       </View>
 
@@ -69,12 +84,15 @@ export default function TeacherLogin({ navigation }) {
         <Icon name="mail" color="#00716F" size={24} />
         <TextInput
           style={{ paddingHorizontal: 10, width: 200 }}
+          secureTextEntry={true}
           placeholder="Password"
+          onChangeText={(text) => setPassword(text)}
+          value={password}
         />
       </View>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate("TeacherHome")}
+        onPress={() => loginHandler()}
         activeOpacity={0.5}
         style={{
           marginHorizontal: 55,
