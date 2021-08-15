@@ -145,7 +145,11 @@ export default function TeacherPrivateHome({ navigation }) {
           </Text>
           <TouchableOpacity
             opacity={0.5}
-            onPress={() => navigation.navigate("TeacherAddClass")}>
+            onPress={() =>
+              navigation.navigate("TeacherAddClass", {
+                editItem: null,
+              })
+            }>
             <AddBtn title="Add new Class" />
           </TouchableOpacity>
         </View>
@@ -175,6 +179,11 @@ export default function TeacherPrivateHome({ navigation }) {
             img={require("../../images/xd.png")}
             title={cls.title}
             deleteAction={() => handleDelete(cls._id)}
+            editAction={() => {
+              navigation.navigate("TeacherAddClass", {
+                editItem: cls,
+              });
+            }}
             bg="#fdddf3"
             onPress={() => navigation.navigate("TeacherClasses")}
           />

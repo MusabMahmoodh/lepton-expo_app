@@ -2,7 +2,14 @@ import React from "react";
 import { Text, TouchableOpacity, View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
-export default function CourseList({ onPress, img, title, bg, deleteAction }) {
+export default function CourseList({
+  onPress,
+  img,
+  title,
+  bg,
+  deleteAction,
+  editAction,
+}) {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -48,7 +55,7 @@ export default function CourseList({ onPress, img, title, bg, deleteAction }) {
                         bgColor="#FFF"
                     > */}
       <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity onPress={() => alert("Edit")}>
+        <TouchableOpacity onPress={() => editAction()}>
           <AntDesign
             name="edit"
             size={24}

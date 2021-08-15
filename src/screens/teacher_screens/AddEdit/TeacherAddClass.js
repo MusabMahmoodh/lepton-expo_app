@@ -15,20 +15,47 @@ import Icon from "@expo/vector-icons/AntDesign";
 import { AntDesign } from "@expo/vector-icons";
 import { Modalize } from "react-native-modalize";
 import { useDispatch, useSelector } from "react-redux";
-import { createClass } from "../../../actions/teacher.class.actions";
+import {
+  createClass,
+  updateClass,
+} from "../../../actions/teacher.class.actions";
 
-export default function TeacherAddClass({ navigation }) {
+export default function TeacherAddClass({ route, navigation }) {
+  const { editItem } = route.params;
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const teacherCreateClass = useSelector((state) => state.teacherCreateClass);
   const { loading, success, error } = teacherCreateClass;
+
+  const teacherUpdateClass = useSelector((state) => state.teacherUpdateClass);
+  const {
+    loading: loadingUpdate,
+    success: successUpdate,
+    error: errorUpdate,
+  } = teacherUpdateClass;
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    if (title.length > 3) {
+    //edit
+    if (!editItem && title.length > 3) {
       dispatch(createClass({ title, description }));
     }
+
+    editItem && dispatch(updateClass(editItem._id, { title, description }));
   };
+  useEffect(() => {
+    if (editItem) {
+      setTitle(editItem.title);
+      setDescription(editItem.description);
+    }
+  }, []);
+  useEffect(() => {
+    if (success || successUpdate) {
+      navigation.navigate("TeacherHome");
+    }
+  }, [success, error, successUpdate, errorUpdate]);
+
   useEffect(() => {
     if (success) {
       navigation.navigate("TeacherHome");
@@ -47,7 +74,7 @@ export default function TeacherAddClass({ navigation }) {
           marginTop: 40,
           color: "white",
         }}>
-        Add new Class
+        {editItem ? "Update Class" : "Add new Class"}
       </Text>
 
       <Modalize
@@ -70,6 +97,16 @@ export default function TeacherAddClass({ navigation }) {
                   color: "#ff0000",
                 }}>
                 {error}
+              </Text>
+            </View>
+          )}
+          {errorUpdate && (
+            <View style={{ alignItems: "center", marginTop: 20 }}>
+              <Text
+                style={{
+                  color: "#ff0000",
+                }}>
+                {errorUpdate}
               </Text>
             </View>
           )}
@@ -146,11 +183,11 @@ export default function TeacherAddClass({ navigation }) {
               style={{
                 color: "white",
               }}>
-              Save
+              {editItem ? "Update" : "Save"}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("TeacherClasses")}
+            onPress={() => navigation.navigate("TeacherHome")}
             activeOpacity={0.5}
             style={{
               marginHorizontal: 55,

@@ -1,3 +1,4 @@
+import { RECORDING_OPTION_IOS_OUTPUT_FORMAT_ENHANCEDAC3 } from "expo-av/build/Audio";
 import http from "../http-common";
 import { getAuthAsyncStorage } from "./getAuthAsyncStorage";
 
@@ -21,10 +22,11 @@ const createClass = async (data) => {
   });
 };
 
-const updateClass = (id, data) => {
-  return http.put(`/questions/${id}`, data, { headers: getAuthAsyncStorage() });
+const updateClass = async (id, data) => {
+  return http.put(`/class/${id}`, data, {
+    headers: { authorization: await getToken() },
+  });
 };
-
 const deleteClass = async (id) => {
   return http.delete(`/class/${id}`, {
     headers: { authorization: await getToken() },

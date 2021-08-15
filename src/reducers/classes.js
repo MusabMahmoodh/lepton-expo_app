@@ -12,6 +12,7 @@ import {
   TEACHER_UPDATE_CLASS_REQUEST,
   TEACHER_UPDATE_CLASS_SUCCESS,
   TEACHER_UPDATE_CLASS_FAIL,
+  TEACHER_UPDATE_CLASS_RESET,
   TEACHER_GET_CLASS_REQUEST,
   TEACHER_GET_CLASS_SUCCESS,
   TEACHER_GET_CLASS_FAIL,
@@ -112,6 +113,12 @@ export function teacherUpdateClassReducer(
       return {
         loading: false,
         error: payload,
+      };
+    case TEACHER_UPDATE_CLASS_RESET:
+      return {
+        updatedClass: {},
+        error: null,
+        success: false,
       };
     default:
       return state;

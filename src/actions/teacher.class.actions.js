@@ -12,6 +12,7 @@ import {
   TEACHER_UPDATE_CLASS_REQUEST,
   TEACHER_UPDATE_CLASS_SUCCESS,
   TEACHER_UPDATE_CLASS_FAIL,
+  TEACHER_UPDATE_CLASS_RESET,
   TEACHER_GET_CLASS_REQUEST,
   TEACHER_GET_CLASS_SUCCESS,
   TEACHER_GET_CLASS_FAIL,
@@ -111,37 +112,35 @@ export const deleteClass = (id) => async (dispatch, getState) => {
 //   }
 // };
 
-// export const updateQn = (id, data) => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: UPDATE_QN_REQUEST,
-//     });
+export const updateClass = (id, data) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TEACHER_UPDATE_CLASS_REQUEST,
+    });
 
-//     const {
-//       auth: { user },
-//       listQns: { qns },
-//     } = getState();
+    const {
+      teacherListClass: { classes },
+    } = getState();
 
-//     const config = {
-//       headers: {
-//         "Content-type": "application/json",
-//         Authorization: `Bearer ${user.token}`,
-//       },
-//     };
+    const res = await TeacherClassService.updateClass(id, data);
 
-//     const res = await TeacherClassService.updateQn(id, data, config);
-
-//     let newArr = qns.filter((qn) => qn._id !== id);
-//     dispatch({ type: RETRIEVE_QNS_SUCCESS, payload: [data, ...newArr] });
-
-//     dispatch({
-//       type: UPDATE_QN_SUCCESS,
-//       payload: res.data,
-//     });
-//   } catch (err) {
-//     dispatch({
-//       type: UPDATE_QN_FAIL,
-//       payload: err.message,
-//     });
-//   }
-// };
+    let newClasses = classes.filter((cls) => cls._id !== id);
+    dispatch({
+      type: TEACHER_UPDATE_CLASS_SUCCESS,
+      payload: [data, ...newClasses],
+    });
+    dispatch({
+      type: TEACHER_LIST_CLASSES_SUCCESS,
+      payload: [data, ...newClasses],
+    });
+    alert(res.data.message);
+    dispatch({
+      type: TEACHER_UPDATE_CLASS_RESET,
+    });
+  } catch (err) {
+    dispatch({
+      type: TEACHER_UPDATE_CLASS_FAIL,
+      payload: err.response.data.message,
+    });
+  }
+};
