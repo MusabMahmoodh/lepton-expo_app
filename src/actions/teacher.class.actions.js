@@ -127,13 +127,13 @@ export const updateClass = (id, data) => async (dispatch, getState) => {
     let newClasses = classes.filter((cls) => cls._id !== id);
     dispatch({
       type: TEACHER_UPDATE_CLASS_SUCCESS,
-      payload: [data, ...newClasses],
+      payload: res.data.classEdited,
     });
     dispatch({
       type: TEACHER_LIST_CLASSES_SUCCESS,
-      payload: [data, ...newClasses],
+      payload: [res.data.classEdited, ...newClasses],
     });
-    alert(res.data.message);
+    alert("Updated successfully");
     dispatch({
       type: TEACHER_UPDATE_CLASS_RESET,
     });
