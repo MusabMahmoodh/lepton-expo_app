@@ -16,7 +16,7 @@ export const login = (data) => async (dispatch) => {
 
   try {
     const res = await userService.login(data);
-    console.log(res.data.data);
+    // console.log(res.data.data);
 
     await setAuthAsyncStorage(res.data.data);
     dispatch({

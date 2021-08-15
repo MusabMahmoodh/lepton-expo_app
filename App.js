@@ -40,7 +40,6 @@ export default function App() {
         await store.dispatch(
           loggedIn({
             user: userStorage.user,
-            token: userStorage.token,
           })
         );
       }

@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
 import Icon from "@expo/vector-icons/AntDesign";
 import { AntDesign } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../actions/auth";
+import { getAuthAsyncStorage } from "../services/getAuthAsyncStorage";
 export default function Login({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const auth = useSelector((state) => state.auth);
   const { errorMessageLogin } = auth;
   const dispatch = useDispatch();
+
   return (
     <View
       style={{
