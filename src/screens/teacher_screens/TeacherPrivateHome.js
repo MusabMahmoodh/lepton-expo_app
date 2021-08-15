@@ -148,42 +148,15 @@ export default function TeacherPrivateHome({ navigation }) {
             </Text>
           </View>
         )}
-        <CourseList
-          img={require("../../images/xd.png")}
-          title="Physics 20 batch"
-          bg="#fdddf3"
-          onPress={() => navigation.navigate("TeacherClasses")}
-        />
-        <CourseList
-          img={require("../../images/sketch.png")}
-          title="Revision physics 20 batch"
-          bg="#fef8e3"
-          onPress={() => navigation.navigate("TeacherClasses")}
-        />
-        <CourseList
-          img={require("../../images/sketch.png")}
-          title="Revision physics 20 batch"
-          bg="#fef8e3"
-          onPress={() => navigation.navigate("TeacherClasses")}
-        />
-        <CourseList
-          img={require("../../images/sketch.png")}
-          title="Revision physics 20 batch"
-          bg="#fef8e3"
-          onPress={() => navigation.navigate("TeacherClasses")}
-        />
-        <CourseList
-          img={require("../../images/sketch.png")}
-          title="Revision physics 20 batch"
-          bg="#fef8e3"
-          onPress={() => navigation.navigate("TeacherClasses")}
-        />
-        <CourseList
-          img={require("../../images/sketch.png")}
-          title="Revision physics 20 batch"
-          bg="#fef8e3"
-          onPress={() => navigation.navigate("TeacherClasses")}
-        />
+        {classes?.map((cls) => (
+          <CourseList
+            key={cls._id}
+            img={require("../../images/xd.png")}
+            title={cls.title}
+            bg="#fdddf3"
+            onPress={() => navigation.navigate("TeacherClasses")}
+          />
+        ))}
       </ScrollView>
     </ImageBackground>
   );

@@ -25,22 +25,26 @@ export const createClass = (data) => async (dispatch, getState) => {
       type: TEACHER_CREATE_CLASS_REQUEST,
     });
 
-    // const {
-    //   teacherListClasses: { classes },
-    // } = getState();
+    const {
+      teacherListClass: { classes },
+    } = getState();
 
-    const { newClass } = await TeacherClassService.createClass(data);
-
-    // dispatch({ type: RETRIEVE_QNS_SUCCESS, payload: [newQuestion, ...qns] });
+    const res = await TeacherClassService.createClass(data);
 
     dispatch({
       type: TEACHER_CREATE_CLASS_SUCCESS,
-      payload: newClass,
+      payload: res.data.newClass,
     });
+    dispatch({
+      type: TEACHER_LIST_CLASSES_SUCCESS,
+      payload: [res.data.newClass, ...classes],
+    });
+
     dispatch({
       type: TEACHER_CREATE_CLASS_RESET,
     });
   } catch (err) {
+    alert(err);
     dispatch({
       type: TEACHER_CREATE_CLASS_FAIL,
       payload: err.response.data.message,
