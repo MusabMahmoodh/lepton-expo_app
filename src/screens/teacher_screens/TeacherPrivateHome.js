@@ -13,18 +13,29 @@ import AddBtn from "../../components/AddBtn";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Input } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
-import { retrieveClasses } from "../../actions/teacher.class.actions";
+import {
+  deleteClass,
+  retrieveClasses,
+} from "../../actions/teacher.class.actions";
 
 export default function TeacherPrivateHome({ navigation }) {
   const teacherListClass = useSelector((state) => state.teacherListClass);
   const { loading, classes, error } = teacherListClass;
+  const teacherDelClass = useSelector((state) => state.teacherDeleteClass);
+  const { loading: delLoading, error: delError } = teacherDelClass;
   const dispatch = useDispatch();
+
+  const handleDelete = (id) => {
+    dispatch(deleteClass(id));
+  };
+
   useEffect(() => {
     if (!classes) {
       dispatch(retrieveClasses());
     }
   }, []);
   useEffect(() => {}, [classes]);
+
   return (
     <ImageBackground
       source={require("../../images/Home.png")}
@@ -148,11 +159,22 @@ export default function TeacherPrivateHome({ navigation }) {
             </Text>
           </View>
         )}
+        {delError && (
+          <View style={{ alignItems: "center", marginTop: 20 }}>
+            <Text
+              style={{
+                color: "#ff0000",
+              }}>
+              {delError}
+            </Text>
+          </View>
+        )}
         {classes?.map((cls) => (
           <CourseList
             key={cls._id}
             img={require("../../images/xd.png")}
             title={cls.title}
+            deleteAction={() => handleDelete(cls._id)}
             bg="#fdddf3"
             onPress={() => navigation.navigate("TeacherClasses")}
           />

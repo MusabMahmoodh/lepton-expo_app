@@ -1,8 +1,8 @@
 import React from "react";
 import { Text, TouchableOpacity, View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
-export default function CourseList({ onPress, img, title, bg }) {
+import { AntDesign } from "@expo/vector-icons";
+export default function CourseList({ onPress, img, title, bg, deleteAction }) {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -38,16 +38,7 @@ export default function CourseList({ onPress, img, title, bg }) {
           10 hours, 19 lessons
         </Text>
       </View>
-      <Text
-        style={{
-          color: "#345c74",
 
-          fontSize: 13,
-          paddingLeft: 10,
-          paddingRight: 10,
-        }}>
-        25%
-      </Text>
       {/* <ProgressCircle
                         percent={30}
                         radius={17}
@@ -56,7 +47,19 @@ export default function CourseList({ onPress, img, title, bg }) {
                         shadowColor="#FFF"
                         bgColor="#FFF"
                     > */}
-      <Image source={require("../images/pl.png")} />
+      <View style={{ flexDirection: "row" }}>
+        <TouchableOpacity onPress={() => alert("Edit")}>
+          <AntDesign
+            name="edit"
+            size={24}
+            color="black"
+            style={{ marginRight: 28 }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => deleteAction()}>
+          <AntDesign name="delete" size={24} color="red" />
+        </TouchableOpacity>
+      </View>
       {/* </ProgressCircle> */}
     </TouchableOpacity>
   );

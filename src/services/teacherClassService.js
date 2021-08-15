@@ -25,8 +25,10 @@ const updateClass = (id, data) => {
   return http.put(`/questions/${id}`, data, { headers: getAuthAsyncStorage() });
 };
 
-const deleteClass = (id) => {
-  return http.delete(`/questions/${id}`, { headers: getAuthAsyncStorage() });
+const deleteClass = async (id) => {
+  return http.delete(`/class/${id}`, {
+    headers: { authorization: await getToken() },
+  });
 };
 
 const TeacherClassService = {

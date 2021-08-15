@@ -67,6 +67,32 @@ export const retrieveClasses = () => async (dispatch) => {
     });
   }
 };
+export const deleteClass = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TEACHER_DELETE_CLASS_REQUEST,
+    });
+    const {
+      teacherListClass: { classes },
+    } = getState();
+
+    const res = await TeacherClassService.deleteClass(id);
+    dispatch({
+      type: TEACHER_DELETE_CLASS_SUCCESS,
+      payload: res.data.message,
+    });
+    alert("Deleted success!");
+    const updatedClasses = classes.filter((cls) => cls._id !== id);
+
+    dispatch({ type: TEACHER_LIST_CLASSES_SUCCESS, payload: updatedClasses });
+  } catch (err) {
+    alert(err);
+    dispatch({
+      type: TEACHER_DELETE_CLASS_FAIL,
+      payload: err.response.data.message,
+    });
+  }
+};
 // export const getQn = (id) => async (dispatch) => {
 //   try {
 //     dispatch({ type: GET_QN_REQUEST });
@@ -115,39 +141,6 @@ export const retrieveClasses = () => async (dispatch) => {
 //   } catch (err) {
 //     dispatch({
 //       type: UPDATE_QN_FAIL,
-//       payload: err.message,
-//     });
-//   }
-// };
-
-// export const deleteQn = (id) => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: DELETE_QN_REQUEST,
-//     });
-//     const {
-//       auth: { user },
-//       listQns: { qns },
-//     } = getState();
-//     const config = {
-//       headers: {
-//         "Content-type": "application/json",
-//         Authorization: `Bearer ${user.token}`,
-//       },
-//     };
-
-//     await TeacherClassService.removeQn(id, config);
-//     dispatch({
-//       type: DELETE_QN_SUCCESS,
-//       payload: { id },
-//     });
-
-//     const updatedQns = qns.filter((qn) => qn._id !== id);
-
-//     dispatch({ type: RETRIEVE_QNS_SUCCESS, payload: updatedQns });
-//   } catch (err) {
-//     dispatch({
-//       type: DELETE_QN_FAIL,
 //       payload: err.message,
 //     });
 //   }
