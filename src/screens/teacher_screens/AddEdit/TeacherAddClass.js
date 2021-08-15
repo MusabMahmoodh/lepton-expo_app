@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   ImageBackground,
@@ -14,8 +14,26 @@ import {
 import Icon from "@expo/vector-icons/AntDesign";
 import { AntDesign } from "@expo/vector-icons";
 import { Modalize } from "react-native-modalize";
+import { useDispatch, useSelector } from "react-redux";
+import { createClass } from "../../../actions/teacher.class.actions";
 
 export default function TeacherAddClass({ navigation }) {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const teacherCreateClass = useSelector((state) => state.teacherCreateClass);
+  const { loading, success, error } = teacherCreateClass;
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    if (title.length > 3) {
+      dispatch(createClass({ title, description }));
+    }
+  };
+  useEffect(() => {
+    if (success) {
+      navigation.navigate("TeacherHome");
+    }
+  }, [success, error]);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -23,7 +41,7 @@ export default function TeacherAddClass({ navigation }) {
       <Text
         style={{
           fontSize: 30,
-          fontFamily: "SemiBold",
+
           alignSelf: "center",
           marginBottom: 40,
           marginTop: 40,
@@ -31,6 +49,7 @@ export default function TeacherAddClass({ navigation }) {
         }}>
         Add new Class
       </Text>
+
       <Modalize
         handleStyle={{
           marginTop: 30,
@@ -44,6 +63,16 @@ export default function TeacherAddClass({ navigation }) {
         alwaysOpen={600}
         scrollViewProps={{ showsVerticalScrollIndicator: false }}>
         <View style={styles.inner}>
+          {error && (
+            <View style={{ alignItems: "center", marginTop: 20 }}>
+              <Text
+                style={{
+                  color: "#ff0000",
+                }}>
+                {error}
+              </Text>
+            </View>
+          )}
           <View
             style={{
               marginTop: 50,
@@ -66,6 +95,8 @@ export default function TeacherAddClass({ navigation }) {
               <TextInput
                 style={{ paddingHorizontal: 10, width: 200 }}
                 placeholder="Class Name"
+                onChangeText={(text) => setTitle(text)}
+                value={title}
               />
             </View>
           </View>
@@ -92,14 +123,14 @@ export default function TeacherAddClass({ navigation }) {
                 numberOfLines={4}
                 style={{ paddingHorizontal: 10, width: 200 }}
                 placeholder="Short description about your class"
-                // onChangeText={(text) => this.setState({text})}
-                // value={this.state.text}/>
+                onChangeText={(text) => setDescription(text)}
+                value={description}
               />
             </View>
           </View>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate("TeacherClasses")}
+            onPress={() => handleSubmit()}
             activeOpacity={0.5}
             style={{
               marginHorizontal: 55,
@@ -114,7 +145,6 @@ export default function TeacherAddClass({ navigation }) {
             <Text
               style={{
                 color: "white",
-                fontFamily: "SemiBold",
               }}>
               Save
             </Text>
@@ -142,13 +172,12 @@ export default function TeacherAddClass({ navigation }) {
             <Text
               style={{
                 color: "#00716F",
-                fontFamily: "SemiBold",
+
                 paddingRight: 5,
               }}>
               <AntDesign
                 style={{
                   color: "#00716F",
-                  fontFamily: "SemiBold",
                 }}
                 name="arrowleft"
                 size={24}
@@ -158,7 +187,6 @@ export default function TeacherAddClass({ navigation }) {
             <Text
               style={{
                 color: "#00716F",
-                fontFamily: "SemiBold",
               }}>
               Cancel
             </Text>
@@ -168,7 +196,7 @@ export default function TeacherAddClass({ navigation }) {
             style={{
               alignSelf: "center",
               color: "#00716F",
-              fontFamily: "SemiBold",
+
               paddingVertical: 10,
             }}>
             How to add?

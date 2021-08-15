@@ -62,7 +62,7 @@ export default class Xd extends React.Component {
         <Text
           style={{
             color: "#FFF",
-            fontFamily: "Bold",
+
             fontSize: 30,
             width: 200,
             alignSelf: "center",
@@ -73,7 +73,7 @@ export default class Xd extends React.Component {
         <Text
           style={{
             color: "#FFF",
-            fontFamily: "Medium",
+
             fontSize: 35,
             width: 200,
             alignSelf: "center",
@@ -114,7 +114,7 @@ export default class Xd extends React.Component {
               <Text
                 style={{
                   color: "#345c74",
-                  fontFamily: "Bold",
+
                   fontSize: 18,
                 }}>
                 John Doe
@@ -122,7 +122,7 @@ export default class Xd extends React.Component {
               <Text
                 style={{
                   color: "#f58084",
-                  fontFamily: "Medium",
+
                   fontSize: 12,
                 }}>
                 Bsc(Hons...)
@@ -193,7 +193,7 @@ export default class Xd extends React.Component {
             <Text
               style={{
                 color: "#f58084",
-                fontFamily: "Bold",
+
                 fontSize: 13,
                 marginRight: 50,
               }}>

@@ -5,6 +5,7 @@ import {
   TEACHER_CREATE_CLASS_REQUEST,
   TEACHER_CREATE_CLASS_SUCCESS,
   TEACHER_CREATE_CLASS_FAIL,
+  TEACHER_CREATE_CLASS_RESET,
   TEACHER_DELETE_CLASS_REQUEST,
   TEACHER_DELETE_CLASS_SUCCESS,
   TEACHER_DELETE_CLASS_FAIL,
@@ -22,13 +23,12 @@ export function teacherListClassesReducer(classes = initialClasses, action) {
 
   switch (type) {
     case TEACHER_LIST_CLASSES_REQUEST:
-      return { loading: true, classes: [], error: null, success: false };
+      return { loading: true, classes: [], error: null };
 
     case TEACHER_LIST_CLASSES_SUCCESS:
       return {
         loading: false,
         classes: payload,
-        success: true,
       };
     case TEACHER_LIST_CLASSES_FAIL:
       return {
@@ -81,6 +81,12 @@ export function teacherCreateClassReducer(
       return {
         loading: false,
         error: payload,
+      };
+    case TEACHER_CREATE_CLASS_RESET:
+      return {
+        createdClass: {},
+        error: null,
+        success: false,
       };
     default:
       return state;

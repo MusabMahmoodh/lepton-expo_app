@@ -24,7 +24,6 @@ export default class Chapters extends React.Component {
           <Text
             style={{
               fontSize: 10,
-              fontFamily: "Bold",
             }}>
             {num}
           </Text>
@@ -33,7 +32,7 @@ export default class Chapters extends React.Component {
           <Text
             style={{
               color: "#345c74",
-              fontFamily: "Bold",
+
               fontSize: 13,
               paddingLeft: 20,
               width: 180,
@@ -44,7 +43,7 @@ export default class Chapters extends React.Component {
             style={{
               color: "#f58084",
               fontSize: 12,
-              fontFamily: "Medium",
+
               paddingLeft: 20,
             }}>
             {duration}
@@ -53,7 +52,7 @@ export default class Chapters extends React.Component {
         <Text
           style={{
             color: "#345c74",
-            fontFamily: "Medium",
+
             fontSize: 13,
             width: 50,
           }}>

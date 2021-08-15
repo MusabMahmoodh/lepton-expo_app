@@ -25,7 +25,7 @@ export default function TeacherAddItem({ navigation }) {
       <Text
         style={{
           fontSize: 30,
-          fontFamily: "SemiBold",
+
           alignSelf: "center",
           marginBottom: 40,
           marginTop: 40,
@@ -150,7 +150,6 @@ export default function TeacherAddItem({ navigation }) {
                 <Text
                   style={{
                     color: "white",
-                    fontFamily: "SemiBold",
                   }}>
                   Save
                 </Text>
@@ -178,13 +177,12 @@ export default function TeacherAddItem({ navigation }) {
                 <Text
                   style={{
                     color: "#00716F",
-                    fontFamily: "SemiBold",
+
                     paddingRight: 5,
                   }}>
                   <AntDesign
                     style={{
                       color: "#00716F",
-                      fontFamily: "SemiBold",
                     }}
                     name="arrowleft"
                     size={24}
@@ -194,7 +192,6 @@ export default function TeacherAddItem({ navigation }) {
                 <Text
                   style={{
                     color: "#00716F",
-                    fontFamily: "SemiBold",
                   }}>
                   Cancel
                 </Text>
@@ -204,7 +201,7 @@ export default function TeacherAddItem({ navigation }) {
                 style={{
                   alignSelf: "center",
                   color: "#00716F",
-                  fontFamily: "SemiBold",
+
                   paddingVertical: 10,
                 }}>
                 How to add?
@@ -308,7 +305,6 @@ export default function TeacherAddItem({ navigation }) {
                 <Text
                   style={{
                     color: "white",
-                    fontFamily: "SemiBold",
                   }}>
                   Save
                 </Text>
@@ -336,13 +332,12 @@ export default function TeacherAddItem({ navigation }) {
                 <Text
                   style={{
                     color: "#00716F",
-                    fontFamily: "SemiBold",
+
                     paddingRight: 5,
                   }}>
                   <AntDesign
                     style={{
                       color: "#00716F",
-                      fontFamily: "SemiBold",
                     }}
                     name="arrowleft"
                     size={24}
@@ -352,7 +347,6 @@ export default function TeacherAddItem({ navigation }) {
                 <Text
                   style={{
                     color: "#00716F",
-                    fontFamily: "SemiBold",
                   }}>
                   Cancel
                 </Text>
@@ -362,7 +356,7 @@ export default function TeacherAddItem({ navigation }) {
                 style={{
                   alignSelf: "center",
                   color: "#00716F",
-                  fontFamily: "SemiBold",
+
                   paddingVertical: 10,
                 }}>
                 How to add?
@@ -466,7 +460,6 @@ export default function TeacherAddItem({ navigation }) {
                 <Text
                   style={{
                     color: "white",
-                    fontFamily: "SemiBold",
                   }}>
                   Save
                 </Text>
@@ -494,13 +487,12 @@ export default function TeacherAddItem({ navigation }) {
                 <Text
                   style={{
                     color: "#00716F",
-                    fontFamily: "SemiBold",
+
                     paddingRight: 5,
                   }}>
                   <AntDesign
                     style={{
                       color: "#00716F",
-                      fontFamily: "SemiBold",
                     }}
                     name="arrowleft"
                     size={24}
@@ -510,7 +502,6 @@ export default function TeacherAddItem({ navigation }) {
                 <Text
                   style={{
                     color: "#00716F",
-                    fontFamily: "SemiBold",
                   }}>
                   Cancel
                 </Text>
@@ -520,7 +511,7 @@ export default function TeacherAddItem({ navigation }) {
                 style={{
                   alignSelf: "center",
                   color: "#00716F",
-                  fontFamily: "SemiBold",
+
                   paddingVertical: 10,
                 }}>
                 How to add?

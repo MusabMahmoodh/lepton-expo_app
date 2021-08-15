@@ -5,6 +5,7 @@ import {
   TEACHER_CREATE_CLASS_REQUEST,
   TEACHER_CREATE_CLASS_SUCCESS,
   TEACHER_CREATE_CLASS_FAIL,
+  TEACHER_CREATE_CLASS_RESET,
   TEACHER_DELETE_CLASS_REQUEST,
   TEACHER_DELETE_CLASS_SUCCESS,
   TEACHER_DELETE_CLASS_FAIL,
@@ -18,45 +19,50 @@ import {
 
 import TeacherClassService from "../services/teacherClassService";
 
-export const createQn = (data) => async (dispatch, getState) => {
+export const createClass = (data) => async (dispatch, getState) => {
   try {
     dispatch({
       type: TEACHER_CREATE_CLASS_REQUEST,
     });
 
-    const {
-      teacherListClasses: { classes },
-    } = getState();
+    // const {
+    //   teacherListClasses: { classes },
+    // } = getState();
 
-    const { data } = await TeacherClassService.createClass(data);
-    console.log(data);
+    const { newClass } = await TeacherClassService.createClass(data);
+
     // dispatch({ type: RETRIEVE_QNS_SUCCESS, payload: [newQuestion, ...qns] });
 
-    // dispatch({
-    //   type: TEACHER_CREATE_CLASS_SUCCESS,
-    //   payload: newQuestion,
-    // });
+    dispatch({
+      type: TEACHER_CREATE_CLASS_SUCCESS,
+      payload: newClass,
+    });
+    dispatch({
+      type: TEACHER_CREATE_CLASS_RESET,
+    });
   } catch (err) {
-    throw err;
+    dispatch({
+      type: TEACHER_CREATE_CLASS_FAIL,
+      payload: err.response.data.message,
+    });
   }
 };
 
-// export const retrieveQns = () => async (dispatch) => {
-//   try {
-//     dispatch({ type: RETRIEVE_QNS_REQUEST });
-//     const res = await TeacherClassService.getAllQns();
-//     dispatch({
-//       type: RETRIEVE_QNS_SUCCESS,
-//       payload: res.data.questions,
-//     });
-//   } catch (err) {
-//     console.log(err);
-//     dispatch({
-//       type: RETRIEVE_QNS_FAIL,
-//       payload: err.message,
-//     });
-//   }
-// };
+export const retrieveClasses = () => async (dispatch) => {
+  try {
+    dispatch({ type: TEACHER_LIST_CLASSES_REQUEST });
+    const res = await TeacherClassService.getAllClasses();
+    dispatch({
+      type: TEACHER_LIST_CLASSES_SUCCESS,
+      payload: res.data.classes,
+    });
+  } catch (err) {
+    dispatch({
+      type: TEACHER_LIST_CLASSES_FAIL,
+      payload: err.response.data.message,
+    });
+  }
+};
 // export const getQn = (id) => async (dispatch) => {
 //   try {
 //     dispatch({ type: GET_QN_REQUEST });

@@ -11,6 +11,7 @@ import { getAuthAsyncStorage } from "./src/services/getAuthAsyncStorage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider } from "react-redux";
+// import * as Font from "expo-font";
 
 import store from "./src/reducers";
 
@@ -32,6 +33,8 @@ import TeacherAddItem from "./src/screens/teacher_screens/AddEdit/TeacherAddItem
 const Stack = createNativeStackNavigator();
 export default function App() {
   const [isLoading, setIsLoadingFromAsyncStorage] = useState(true);
+  const [fontLoading, setFontLoading] = useState(true);
+
   useEffect(() => {
     const load = async () => {
       await setIsLoadingFromAsyncStorage(true);
@@ -46,13 +49,17 @@ export default function App() {
       await setIsLoadingFromAsyncStorage(false);
     };
     load();
-  }, []);
+    // const loadFonts = async () => {
+    //   await Font.loadAsync({
+    //     SemiBold: require("./src/fonts/Montserrat-ExtraBold.otf"),
+    //     Medium: require("./src/fonts/Montserrat-Medium.otf"),
+    //     Regular: require("./src/fonts/Montserrat-Regular.otf"),
+    //   });
+    //   setFontLoading(false);
+    // };
 
-  // let [fontsLoaded] = useFonts({
-  //   Bold: require("./src/fonts/Montserrat-ExtraBold.otf"),
-  //   Medium: require("./src/fonts/Montserrat-Medium.otf"),
-  //   Regular: require("./src/fonts/Montserrat-Regular.otf"),
-  // });
+    // loadFonts();
+  }, []);
 
   if (isLoading) {
     return <AppLoading />;

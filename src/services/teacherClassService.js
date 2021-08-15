@@ -1,16 +1,24 @@
 import http from "../http-common";
 import { getAuthAsyncStorage } from "./getAuthAsyncStorage";
 
-const getAllClasses = () => {
-  return http.get("/questions");
+const getToken = async () => {
+  const { user } = await getAuthAsyncStorage();
+  return `Bearer ${user.token}`;
+};
+const getAllClasses = async () => {
+  return http.get("/class", {
+    headers: { authorization: await getToken() },
+  });
 };
 
 const getClassById = (id) => {
   return http.get(`/questions/${id}`);
 };
 
-const createClass = (data) => {
-  return http.post("/questions", data, { headers: getAuthAsyncStorage() });
+const createClass = async (data) => {
+  return http.post("/class", data, {
+    headers: { authorization: await getToken() },
+  });
 };
 
 const updateClass = (id, data) => {

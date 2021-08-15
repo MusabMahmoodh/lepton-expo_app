@@ -56,7 +56,7 @@ export default function TeacherClasses({ navigation }) {
         style={{
           color: "#FFF",
           fontSize: 35,
-          fontFamily: "Bold",
+
           width: 200,
           alignSelf: "center",
           textAlign: "center",

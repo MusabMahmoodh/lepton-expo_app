@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -12,8 +12,19 @@ import CourseList from "../../container/CourseList";
 import AddBtn from "../../components/AddBtn";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Input } from "react-native-elements";
+import { useDispatch, useSelector } from "react-redux";
+import { retrieveClasses } from "../../actions/teacher.class.actions";
 
 export default function TeacherPrivateHome({ navigation }) {
+  const teacherListClass = useSelector((state) => state.teacherListClass);
+  const { loading, classes, error } = teacherListClass;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!classes) {
+      dispatch(retrieveClasses());
+    }
+  }, []);
+  useEffect(() => {}, [classes]);
   return (
     <ImageBackground
       source={require("../../images/Home.png")}
@@ -25,7 +36,7 @@ export default function TeacherPrivateHome({ navigation }) {
             paddingHorizontal: 20,
             fontSize: 35,
             paddingTop: 10,
-            fontFamily: "Bold",
+
             color: "#AE5151",
           }}>
           Welcome back Teacher
@@ -45,7 +56,7 @@ export default function TeacherPrivateHome({ navigation }) {
               placeholder="Search for new knowledge!"
               placeholderTextColor="#345c74"
               style={{
-                fontFamily: "Bold",
+                
                 fontSize: 12,
                 width: 280,
                 paddingHorizontal: 12,
@@ -71,7 +82,7 @@ export default function TeacherPrivateHome({ navigation }) {
               style={{
                 color: "#345c74",
                 fontSize: 20,
-                fontFamily: "Bold",
+
                 width: 250,
                 paddingRight: 100,
               }}>
@@ -92,7 +103,7 @@ export default function TeacherPrivateHome({ navigation }) {
               <Text
                 style={{
                   color: "#FFF",
-                  fontFamily: "Bold",
+
                   fontSize: 12,
                 }}>
                 Add Notice
@@ -116,7 +127,7 @@ export default function TeacherPrivateHome({ navigation }) {
           <Text
             style={{
               color: "#345c74",
-              fontFamily: "Bold",
+
               fontSize: 20,
             }}>
             My classes
@@ -127,7 +138,16 @@ export default function TeacherPrivateHome({ navigation }) {
             <AddBtn title="Add new Class" />
           </TouchableOpacity>
         </View>
-
+        {error && (
+          <View style={{ alignItems: "center", marginTop: 20 }}>
+            <Text
+              style={{
+                color: "#ff0000",
+              }}>
+              {error}
+            </Text>
+          </View>
+        )}
         <CourseList
           img={require("../../images/xd.png")}
           title="Physics 20 batch"

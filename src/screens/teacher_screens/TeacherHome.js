@@ -6,6 +6,7 @@ import TeacherStudentHome from "./TeacherStudentHome";
 import TeacherProfile from "./TeacherProfile";
 const Tab = createBottomTabNavigator();
 import { AntDesign } from "@expo/vector-icons";
+
 const TeacherHome = () => {
   return (
     <Tab.Navigator
@@ -45,17 +46,6 @@ const TeacherHome = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="TeacherProfile"
-        component={TeacherProfile}
-        options={{
-          title: "Messages",
-
-          tabBarIcon: ({ tintColor }) => (
-            <AntDesign name="message1" size={30} color="#345c74" />
-          ),
-        }}
-      /> */}
     </Tab.Navigator>
   );
 };

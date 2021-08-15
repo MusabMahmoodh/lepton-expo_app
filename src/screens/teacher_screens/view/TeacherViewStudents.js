@@ -102,7 +102,7 @@ export default function TeacherViewStudent({ navigation }) {
       <Text
         style={{
           fontSize: 30,
-          fontFamily: "SemiBold",
+
           alignSelf: "center",
           marginBottom: 40,
           marginTop: 40,

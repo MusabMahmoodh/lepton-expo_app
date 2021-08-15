@@ -41,7 +41,7 @@ export default function Home({ navigation }) {
             paddingHorizontal: 20,
             fontSize: 35,
             paddingTop: 10,
-            fontFamily: "Bold",
+
             color: "#AE5151",
           }}>
           Welcome back student
@@ -61,7 +61,7 @@ export default function Home({ navigation }) {
               placeholder="Search for new knowledge!"
               placeholderTextColor="#345c74"
               style={{
-                fontFamily: "Bold",
+                
                 fontSize: 12,
                 width: 280,
                 paddingHorizontal: 12,
@@ -87,7 +87,7 @@ export default function Home({ navigation }) {
               style={{
                 color: "#345c74",
                 fontSize: 20,
-                fontFamily: "Bold",
+
                 width: 250,
                 paddingRight: 100,
               }}>
@@ -107,7 +107,7 @@ export default function Home({ navigation }) {
               <Text
                 style={{
                   color: "#FFF",
-                  fontFamily: "Bold",
+
                   fontSize: 12,
                 }}>
                 Change Teacher
@@ -126,7 +126,7 @@ export default function Home({ navigation }) {
         <Text
           style={{
             color: "#345c74",
-            fontFamily: "Bold",
+
             fontSize: 20,
             paddingHorizontal: 20,
             marginTop: 20,

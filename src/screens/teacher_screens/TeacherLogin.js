@@ -36,7 +36,7 @@ export default function TeacherLogin({ navigation }) {
       <Text
         style={{
           fontSize: 30,
-          fontFamily: "SemiBold",
+
           alignSelf: "center",
         }}>
         Lepton for Teachers
@@ -44,7 +44,6 @@ export default function TeacherLogin({ navigation }) {
 
       <Text
         style={{
-          fontFamily: "SemiBold",
           marginHorizontal: 55,
           textAlign: "center",
           marginTop: 5,
@@ -123,7 +122,6 @@ export default function TeacherLogin({ navigation }) {
         <Text
           style={{
             color: "white",
-            fontFamily: "SemiBold",
           }}>
           Login
         </Text>
@@ -151,19 +149,16 @@ export default function TeacherLogin({ navigation }) {
         <Text
           style={{
             color: "#00716F",
-            fontFamily: "SemiBold",
           }}>
           Student Login
         </Text>
         <Text
           style={{
             color: "#00716F",
-            fontFamily: "SemiBold",
           }}>
           <AntDesign
             style={{
               color: "#00716F",
-              fontFamily: "SemiBold",
             }}
             name="arrowright"
             size={24}
@@ -176,7 +171,7 @@ export default function TeacherLogin({ navigation }) {
         style={{
           alignSelf: "center",
           color: "#00716F",
-          fontFamily: "SemiBold",
+
           paddingVertical: 10,
         }}>
         New Teacher?

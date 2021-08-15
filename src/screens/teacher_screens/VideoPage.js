@@ -136,7 +136,6 @@ export default function VideoPage() {
 
       <Text
         style={{
-          fontFamily: "Medium",
           textAlign: "justify",
           color: "#345c74",
           paddingLeft: 42,
@@ -162,7 +161,7 @@ export default function VideoPage() {
         <Text
           style={{
             color: "#FFF",
-            fontFamily: "Bold",
+
             fontSize: 15,
             marginRight: 50,
           }}>

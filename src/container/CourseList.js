@@ -21,7 +21,7 @@ export default function CourseList({ onPress, img, title, bg }) {
         <Text
           style={{
             color: "#345c74",
-            fontFamily: "Bold",
+
             fontSize: 13,
             paddingHorizontal: 20,
             width: 170,
@@ -31,7 +31,7 @@ export default function CourseList({ onPress, img, title, bg }) {
         <Text
           style={{
             color: "#f58084",
-            fontFamily: "Medium",
+
             fontSize: 12,
             paddingHorizontal: 20,
           }}>
@@ -41,7 +41,7 @@ export default function CourseList({ onPress, img, title, bg }) {
       <Text
         style={{
           color: "#345c74",
-          fontFamily: "Medium",
+
           fontSize: 13,
           paddingLeft: 10,
           paddingRight: 10,

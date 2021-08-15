@@ -15,7 +15,7 @@ const AddBtn = ({ title }) => {
         style={{
           color: "#FFF",
           fontSize: 15,
-          fontFamily: "Bold",
+
           paddingHorizontal: 10,
         }}>
         {title}
