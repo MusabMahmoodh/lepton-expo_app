@@ -2,7 +2,7 @@ import http from "../http-common";
 import { getToken } from "./getAuthAsyncStorage";
 
 const getAllStudentsOfATeacher = async (id) => {
-  return http.get(`/student/class/${id}`, {
+  return http.get(`/student`, {
     headers: { authorization: await getToken() },
   });
 };

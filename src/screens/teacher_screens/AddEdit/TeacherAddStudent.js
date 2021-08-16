@@ -21,6 +21,7 @@ import {
   updateClass,
 } from "../../../actions/teacher.class.actions";
 import generateRandAlphaNum from "../../../utils/generateRandAlphaNum";
+import { createStudent } from "../../../actions/teacher.student.actions";
 export default function TeacherAddStudent({ route, navigation }) {
   // const { editItem } = route.params;
 
@@ -32,31 +33,35 @@ export default function TeacherAddStudent({ route, navigation }) {
   const [classToken, setClassToken] = useState("");
   const [singleDevice, setSingleDevice] = useState(false);
 
-  const teacherCreateClass = useSelector((state) => state.teacherCreateClass);
-  const { loading, success, error } = teacherCreateClass;
+  const teacherCreateStudent = useSelector(
+    (state) => state.teacherCreateStudent
+  );
+  const { loading, success, error } = teacherCreateStudent;
 
   const teacherUpdateClass = useSelector((state) => state.teacherUpdateClass);
-  const {
-    loading: loadingUpdate,
-    success: successUpdate,
-    error: errorUpdate,
-  } = teacherUpdateClass;
+  // const {
+  //   loading: loadingUpdate,
+  //   success: successUpdate,
+  //   error: errorUpdate,
+  // } = teacherUpdateClass;
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    console.log(
-      indexNumber,
-      name,
-      school,
-      district,
-      mobileNumber,
-      classToken,
-      singleDevice
-    );
-    // //edit
+    //edit
     // if (!editItem && indexNumber.length > 3) {
-    //   dispatch(createClass({ indexNumber }));
-    // }
+    if (indexNumber.length > 1 && name.length && classToken) {
+      dispatch(
+        createStudent({
+          indexNumber,
+          name,
+          school,
+          district,
+          mobileNumber,
+          classToken,
+          singleDevice,
+        })
+      );
+    }
 
     // editItem && dispatch(updateClass(editItem._id, { indexNumber }));
   };
@@ -66,11 +71,13 @@ export default function TeacherAddStudent({ route, navigation }) {
   //     // setDescription(editItem.description);
   //   }
   // }, []);
-  // useEffect(() => {
-  //   if (success || successUpdate) {
-  //     navigation.navigate("TeacherHome");
-  //   }
-  // }, [success, error, successUpdate, errorUpdate]);
+  useEffect(() => {
+    // if (success || successUpdate) {
+    if (success) {
+      navigation.navigate("TeacherHome");
+    }
+    // }, [success, error, successUpdate, errorUpdate]);
+  }, [success]);
 
   // useEffect(() => {
   //   if (success) {

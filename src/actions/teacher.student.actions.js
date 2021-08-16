@@ -1,7 +1,7 @@
 import {
-  TEACHER_LIST_STUDENT_REQUEST,
-  TEACHER_LIST_STUDENT_SUCCESS,
-  TEACHER_LIST_STUDENT_FAIL,
+  TEACHER_LIST_STUDENTS_SUCCESS,
+  TEACHER_LIST_STUDENTS_REQUEST,
+  TEACHER_LIST_STUDENTS_FAIL,
   TEACHER_CREATE_STUDENT_REQUEST,
   TEACHER_CREATE_STUDENT_SUCCESS,
   TEACHER_CREATE_STUDENT_FAIL,
@@ -36,8 +36,9 @@ export const createStudent = (data) => async (dispatch, getState) => {
       type: TEACHER_CREATE_STUDENT_SUCCESS,
       payload: res.data.newStudent,
     });
+
     dispatch({
-      type: TEACHER_LIST_STUDENT_SUCCESS,
+      type: TEACHER_LIST_STUDENTS_SUCCESS,
       payload: [res.data.newStudent, ...students],
     });
 
@@ -45,7 +46,7 @@ export const createStudent = (data) => async (dispatch, getState) => {
       type: TEACHER_CREATE_STUDENT_RESET,
     });
   } catch (err) {
-    alert(err);
+    alert(err.response.data.message);
     dispatch({
       type: TEACHER_CREATE_STUDENT_FAIL,
       payload: err.response.data.message,
@@ -55,15 +56,15 @@ export const createStudent = (data) => async (dispatch, getState) => {
 
 export const retrieveStudents = () => async (dispatch) => {
   try {
-    dispatch({ type: TEACHER_LIST_STUDENT_REQUEST });
+    dispatch({ type: TEACHER_LIST_STUDENTS_REQUEST });
     const res = await TeacherStudentService.getAllStudentsOfATeacher();
     dispatch({
-      type: TEACHER_LIST_STUDENT_SUCCESS,
+      type: TEACHER_LIST_STUDENTS_SUCCESS,
       payload: res.data.students,
     });
   } catch (err) {
     dispatch({
-      type: TEACHER_LIST_STUDENT_FAIL,
+      type: TEACHER_LIST_STUDENTS_FAIL,
       payload: err.response.data.message,
     });
   }
