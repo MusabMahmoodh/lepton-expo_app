@@ -12,7 +12,10 @@ import { useNavigation } from "@react-navigation/native";
 import AddBtn from "../../components/AddBtn";
 import ViewBtn from "../../components/ViewBtn";
 import { useDispatch, useSelector } from "react-redux";
-import { retrieveLessons } from "../../actions/teacher.lesson.actions";
+import {
+  deleteLesson,
+  retrieveLessons,
+} from "../../actions/teacher.lesson.actions";
 
 export default function TeacherClasses({ route, navigation }) {
   const { classId } = route.params;
@@ -20,13 +23,13 @@ export default function TeacherClasses({ route, navigation }) {
   const [currentClass, setCurrentClass] = useState(classId);
   const teacherListLesson = useSelector((state) => state.teacherListLesson);
   const { loading, lessons, error } = teacherListLesson;
-  // const teacherDelClass = useSelector((state) => state.teacherDeleteClass);
-  // const { loading: delLoading, error: delError } = teacherDelClass;
+  const teacherDelLesson = useSelector((state) => state.teacherDeleteLesson);
+  const { loading: delLoading, error: delError } = teacherDelLesson;
   const dispatch = useDispatch();
 
-  // const handleDelete = (id) => {
-  //   dispatch(deleteClass(id));
-  // };
+  const handleDelete = (id) => {
+    dispatch(deleteLesson(id));
+  };
 
   useEffect(() => {
     if (classId) {

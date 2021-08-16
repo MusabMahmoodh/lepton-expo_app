@@ -69,32 +69,32 @@ export const retrieveLessons = (id) => async (dispatch) => {
     });
   }
 };
-// export const deleteClass = (id) => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: TEACHER_DELETE_LESSON_REQUEST,
-//     });
-//     const {
-//       teacherListClass: { classes },
-//     } = getState();
+export const deleteLesson = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TEACHER_DELETE_LESSON_REQUEST,
+    });
+    const {
+      teacherListLesson: { lessons },
+    } = getState();
 
-//     const res = await TeacherLessonService.deleteClass(id);
-//     dispatch({
-//       type: TEACHER_DELETE_LESSON_SUCCESS,
-//       payload: res.data.message,
-//     });
-//     alert("Deleted success!");
-//     const updatedClasses = classes.filter((cls) => cls._id !== id);
+    const res = await TeacherLessonService.deleteLesson(id);
+    dispatch({
+      type: TEACHER_DELETE_LESSON_SUCCESS,
+      payload: res.data.message,
+    });
+    alert("Deleted success!");
+    const updatedLessons = lessons.filter((lsn) => lsn._id !== id);
 
-//     dispatch({ type: TEACHER_LIST_LESSONS_SUCCESS, payload: updatedClasses });
-//   } catch (err) {
-//     alert(err);
-//     dispatch({
-//       type: TEACHER_DELETE_LESSON_FAIL,
-//       payload: err.response.data.message,
-//     });
-//   }
-// };
+    dispatch({ type: TEACHER_LIST_LESSONS_SUCCESS, payload: updatedLessons });
+  } catch (err) {
+    alert(err);
+    dispatch({
+      type: TEACHER_DELETE_LESSON_FAIL,
+      payload: err.response.data.message,
+    });
+  }
+};
 // // export const getQn = (id) => async (dispatch) => {
 // //   try {
 // //     dispatch({ type: GET_QN_REQUEST });
@@ -125,7 +125,7 @@ export const retrieveLessons = (id) => async (dispatch) => {
 
 //     const res = await TeacherLessonService.updateClass(id, data);
 
-//     let newClasses = classes.filter((cls) => cls._id !== id);
+//     let newClasses = classes.filter((lsn) => cls._id !== id);
 //     dispatch({
 //       type: TEACHER_UPDATE_LESSON_SUCCESS,
 //       payload: res.data.classEdited,
