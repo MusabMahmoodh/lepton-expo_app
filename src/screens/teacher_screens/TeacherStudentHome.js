@@ -113,12 +113,27 @@ export default function TeacherViewStudent({ navigation }) {
         My Students
       </Text>
 
-      <View>
-        <Button
-          icon={<Icon name="plus" size={15} color="white" />}
-          title="Add New Student"
-        />
-      </View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("TeacherAddStudent")}
+        style={{
+          flexDirection: "row",
+          backgroundColor: "#f58084",
+          alignItems: "center",
+          marginTop: 20,
+          width: 150,
+          paddingVertical: 10,
+          borderRadius: 14,
+          paddingHorizontal: 10,
+        }}>
+        <Text
+          style={{
+            color: "#FFF",
+
+            fontSize: 12,
+          }}>
+          Add New Student
+        </Text>
+      </TouchableOpacity>
       <View style={{ paddingTop: 4 }}>
         <SearchBar
           placeholder="Search Student..."

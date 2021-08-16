@@ -16,6 +16,13 @@ import {
   teacherUpdateLessonReducer,
   teacherDeleteLessonReducer,
 } from "./lessons";
+import {
+  teacherListStudentsReducer,
+  teacherGetStudentReducer,
+  teacherCreateStudentReducer,
+  teacherUpdateStudentReducer,
+  teacherDeleteStudentReducer,
+} from "./students";
 
 const reducers = combineReducers({
   auth: authReducer,
@@ -30,6 +37,12 @@ const reducers = combineReducers({
   teacherCreateLesson: teacherCreateLessonReducer,
   teacherUpdateLesson: teacherUpdateLessonReducer,
   teacherDeleteLesson: teacherDeleteLessonReducer,
+  //
+  teacherListStudent: teacherListStudentsReducer,
+  teacherGetStudent: teacherGetStudentReducer,
+  teacherCreateStudent: teacherCreateStudentReducer,
+  teacherUpdateStudent: teacherUpdateStudentReducer,
+  teacherDeleteStudent: teacherDeleteStudentReducer,
 });
 
 const middleware = [ReduxThunk];

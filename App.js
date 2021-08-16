@@ -29,6 +29,7 @@ import TeacherAddClass from "./src/screens/teacher_screens/AddEdit/TeacherAddCla
 import TeacherAddNotice from "./src/screens/teacher_screens/AddEdit/TeacherAddNotice";
 import TeacherAddLesson from "./src/screens/teacher_screens/AddEdit/TeacherAddLesson";
 import TeacherViewStudent from "./src/screens/teacher_screens/view/TeacherViewStudents";
+import TeacherAddStudent from "./src/screens/teacher_screens/AddEdit/TeacherAddStudent";
 import TeacherAddItem from "./src/screens/teacher_screens/AddEdit/TeacherAddItem";
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -110,6 +111,10 @@ export default function App() {
                 <Stack.Screen
                   name="TeacherViewStudent"
                   component={TeacherViewStudent}
+                />
+                <Stack.Screen
+                  name="TeacherAddStudent"
+                  component={TeacherAddStudent}
                 />
                 <Stack.Screen
                   name="TeacherAddItem"
