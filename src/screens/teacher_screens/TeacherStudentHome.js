@@ -107,7 +107,12 @@ export default function TeacherViewStudent({ navigation }) {
                 color="black"
                 style={{ marginRight: 28 }}
               />
-              <AntDesign name="delete" size={24} color="red" />
+              <AntDesign
+                name="delete"
+                size={24}
+                color="red"
+                onPress={() => handleDelete(std._id)}
+              />
             </ListItem.Content>
           </ListItem>
         ))}

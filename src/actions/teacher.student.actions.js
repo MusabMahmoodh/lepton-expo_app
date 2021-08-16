@@ -86,7 +86,7 @@ export const deleteStudent = (id) => async (dispatch, getState) => {
     alert("Deleted success!");
     const updatedStudents = students.filter((std) => std._id !== id);
 
-    dispatch({ type: TEACHER_LIST_STUDENT_SUCCESS, payload: updatedStudents });
+    dispatch({ type: TEACHER_LIST_STUDENTS_SUCCESS, payload: updatedStudents });
   } catch (err) {
     alert(err);
     dispatch({
