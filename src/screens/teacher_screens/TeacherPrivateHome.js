@@ -188,6 +188,7 @@ export default function TeacherPrivateHome({ navigation }) {
             onPress={() =>
               navigation.navigate("TeacherClasses", {
                 classId: cls._id,
+                classTitle: cls.title,
               })
             }
           />

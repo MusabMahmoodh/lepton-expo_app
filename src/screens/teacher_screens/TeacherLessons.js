@@ -13,6 +13,7 @@ import ViewBtn from "../../components/ViewBtn";
 import Chapters from "../../screens/Chapters";
 
 export default function TeacherLessons({ route, navigation }) {
+  const { lessonId, lessonTitle } = route.params;
   return (
     <ImageBackground
       source={require("../../images/crs.png")}
@@ -52,7 +53,6 @@ export default function TeacherLessons({ route, navigation }) {
           />
         </View>
       </View>
-
       <Text
         style={{
           color: "#FFF",
@@ -62,18 +62,7 @@ export default function TeacherLessons({ route, navigation }) {
           alignSelf: "center",
           textAlign: "center",
         }}>
-        MEchanics
-      </Text>
-      <Text
-        style={{
-          color: "#FFF",
-
-          fontSize: 35,
-          width: 200,
-          alignSelf: "center",
-          textAlign: "center",
-        }}>
-        Part 1
+        {lessonTitle}
       </Text>
 
       <View

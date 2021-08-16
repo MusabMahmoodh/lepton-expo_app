@@ -18,7 +18,7 @@ import {
 } from "../../actions/teacher.lesson.actions";
 
 export default function TeacherClasses({ route, navigation }) {
-  const { classId } = route.params;
+  const { classId, classTitle } = route.params;
 
   const [currentClass, setCurrentClass] = useState(classId);
   const teacherListLesson = useSelector((state) => state.teacherListLesson);
@@ -87,7 +87,7 @@ export default function TeacherClasses({ route, navigation }) {
           textAlign: "center",
           marginTop: 34,
         }}>
-        Physics 21
+        {classTitle}
       </Text>
       <View
         style={{
@@ -135,8 +135,9 @@ export default function TeacherClasses({ route, navigation }) {
               }}
               bg="#fef8e3"
               onPress={() =>
-                navigation.navigate("TeacherResources", {
+                navigation.navigate("TeacherLessons", {
                   lessonId: lesson._id,
+                  lessonTitle: lesson.title,
                 })
               }
             />

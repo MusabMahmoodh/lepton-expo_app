@@ -115,7 +115,7 @@ export default function TeacherViewStudent({ navigation }) {
 
       <View>
         <Button
-          icon={<Icon name="arrow-right" size={15} color="white" />}
+          icon={<Icon name="plus" size={15} color="white" />}
           title="Add New Student"
         />
       </View>

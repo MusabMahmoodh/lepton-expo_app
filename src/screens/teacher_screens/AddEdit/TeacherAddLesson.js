@@ -15,7 +15,7 @@ import Icon from "@expo/vector-icons/AntDesign";
 import { AntDesign } from "@expo/vector-icons";
 import { Modalize } from "react-native-modalize";
 import { useDispatch, useSelector } from "react-redux";
-import { createLesson } from "../../../actions/teacher.lesson.actions";
+import { createLesson, updateLesson } from "../../../actions/teacher.lesson.actions";
 
 export default function TeacherAddClass({ route, navigation }) {
   const { editItem, classId } = route.params;
@@ -28,12 +28,12 @@ export default function TeacherAddClass({ route, navigation }) {
   const teacherCreateLesson = useSelector((state) => state.teacherCreateLesson);
   const { loading, success, error } = teacherCreateLesson;
 
-  // const teacherUpdateClass = useSelector((state) => state.teacherUpdateClass);
-  // const {
-  //   loading: loadingUpdate,
-  //   success: successUpdate,
-  //   error: errorUpdate,
-  // } = teacherUpdateClass;
+  const teacherUpdateLesson = useSelector((state) => state.teacherUpdateLesson);
+  const {
+    loading: loadingUpdate,
+    success: successUpdate,
+    error: errorUpdate,
+  } = teacherUpdateLesson;
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
@@ -42,25 +42,20 @@ export default function TeacherAddClass({ route, navigation }) {
       dispatch(createLesson({ title, description, class: currentClass }));
     }
 
-    // editItem && dispatch(updateLesson(editItem._id, { title, description }));
+    editItem && dispatch(updateLesson(editItem._id, { title, description }));
   };
-  // useEffect(() => {
-  //   if (editItem) {
-  //     setTitle(editItem.title);
-  //     setDescription(editItem.description);
-  //   }
-  // }, []);
   useEffect(() => {
-    if (success) {
-      navigation.navigate("TeacherClasses", {
-        classId: currentClass,
-      });
+    if (editItem) {
+      setTitle(editItem.title);
+      setDescription(editItem.description);
     }
-    // if (success || successUpdate) {
-    //   navigation.navigate("TeacherHome");
-    // }
-    // }, [success, error, successUpdate, errorUpdate]);
-  }, [success, error]);
+  }, []);
+  useEffect(() => {
+    if (success || successUpdate) {
+      navigation.navigate("TeacherHome");
+    }
+  }, [success, error, successUpdate, errorUpdate]);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}

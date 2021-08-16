@@ -113,35 +113,35 @@ export const deleteLesson = (id) => async (dispatch, getState) => {
 // //   }
 // // };
 
-// export const updateClass = (id, data) => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: TEACHER_UPDATE_LESSON_REQUEST,
-//     });
+export const updateLesson = (id, data) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TEACHER_UPDATE_LESSON_REQUEST,
+    });
 
-//     const {
-//       teacherListClass: { classes },
-//     } = getState();
+    const {
+      teacherListClass: { classes },
+    } = getState();
 
-//     const res = await TeacherLessonService.updateClass(id, data);
+    const res = await TeacherLessonService.updateLesson(id, data);
 
-//     let newClasses = classes.filter((lsn) => cls._id !== id);
-//     dispatch({
-//       type: TEACHER_UPDATE_LESSON_SUCCESS,
-//       payload: res.data.classEdited,
-//     });
-//     dispatch({
-//       type: TEACHER_LIST_LESSONS_SUCCESS,
-//       payload: [res.data.classEdited, ...newClasses],
-//     });
-//     alert("Updated successfully");
-//     dispatch({
-//       type: TEACHER_UPDATE_LESSON_RESET,
-//     });
-//   } catch (err) {
-//     dispatch({
-//       type: TEACHER_UPDATE_LESSON_FAIL,
-//       payload: err.response.data.message,
-//     });
-//   }
-// };
+    let newLessons = classes.filter((lsn) => lsn._id !== id);
+    dispatch({
+      type: TEACHER_UPDATE_LESSON_SUCCESS,
+      payload: res.data,
+    });
+    dispatch({
+      type: TEACHER_LIST_LESSONS_SUCCESS,
+      payload: [res.data, ...newLessons],
+    });
+    alert("Updated successfully");
+    dispatch({
+      type: TEACHER_UPDATE_LESSON_RESET,
+    });
+  } catch (err) {
+    dispatch({
+      type: TEACHER_UPDATE_LESSON_FAIL,
+      payload: err.response.data.message,
+    });
+  }
+};
