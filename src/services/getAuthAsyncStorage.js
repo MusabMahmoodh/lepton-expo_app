@@ -7,6 +7,11 @@ export async function getAuthAsyncStorage() {
   };
 }
 
+export const getToken = async () => {
+  const { user } = await getAuthAsyncStorage();
+  return `Bearer ${user.token}`;
+};
+
 export async function setAuthAsyncStorage(data) {
   await AsyncStorage.setItem("userData", JSON.stringify(data));
 }

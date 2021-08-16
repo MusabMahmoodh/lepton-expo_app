@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Modalize } from "react-native-modalize";
+
 import AddBtn from "../../components/AddBtn";
 import ViewBtn from "../../components/ViewBtn";
 import Chapters from "../../screens/Chapters";
 
-export default function TeacherLessons({ navigation }) {
+export default function TeacherLessons({ route, navigation }) {
   return (
     <ImageBackground
       source={require("../../images/crs.png")}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   ImageBackground,
@@ -14,8 +14,53 @@ import {
 import Icon from "@expo/vector-icons/AntDesign";
 import { AntDesign } from "@expo/vector-icons";
 import { Modalize } from "react-native-modalize";
+import { useDispatch, useSelector } from "react-redux";
+import { createLesson } from "../../../actions/teacher.lesson.actions";
 
-export default function TeacherAddClass({ navigation }) {
+export default function TeacherAddClass({ route, navigation }) {
+  const { editItem, classId } = route.params;
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
+  const [currentClass, setCurrentClass] = useState(classId);
+  // const [lessonClass, setLessonClass] = useState("");
+  const teacherCreateLesson = useSelector((state) => state.teacherCreateLesson);
+  const { loading, success, error } = teacherCreateLesson;
+
+  // const teacherUpdateClass = useSelector((state) => state.teacherUpdateClass);
+  // const {
+  //   loading: loadingUpdate,
+  //   success: successUpdate,
+  //   error: errorUpdate,
+  // } = teacherUpdateClass;
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    //edit
+    if (classId && !editItem && title.length > 3) {
+      dispatch(createLesson({ title, description, class: currentClass }));
+    }
+
+    // editItem && dispatch(updateLesson(editItem._id, { title, description }));
+  };
+  // useEffect(() => {
+  //   if (editItem) {
+  //     setTitle(editItem.title);
+  //     setDescription(editItem.description);
+  //   }
+  // }, []);
+  useEffect(() => {
+    if (success) {
+      navigation.navigate("TeacherClasses", {
+        classId: currentClass,
+      });
+    }
+    // if (success || successUpdate) {
+    //   navigation.navigate("TeacherHome");
+    // }
+    // }, [success, error, successUpdate, errorUpdate]);
+  }, [success, error]);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -66,6 +111,8 @@ export default function TeacherAddClass({ navigation }) {
               <TextInput
                 style={{ paddingHorizontal: 10, width: 200 }}
                 placeholder="Lesson Name"
+                onChangeText={(text) => setTitle(text)}
+                value={title}
               />
             </View>
           </View>
@@ -92,14 +139,14 @@ export default function TeacherAddClass({ navigation }) {
                 numberOfLines={4}
                 style={{ paddingHorizontal: 10, width: 200 }}
                 placeholder="Short description about your class"
-                // onChangeText={(text) => this.setState({text})}
-                // value={this.state.text}/>
+                onChangeText={(text) => setDescription(text)}
+                value={description}
               />
             </View>
           </View>
 
           <TouchableOpacity
-            onPress={() => navigation.navigate("TeacherClasses")}
+            onPress={() => handleSubmit()}
             activeOpacity={0.5}
             style={{
               marginHorizontal: 55,
@@ -115,7 +162,7 @@ export default function TeacherAddClass({ navigation }) {
               style={{
                 color: "white",
               }}>
-              Save
+              {editItem ? "Update" : "Save"}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity

@@ -185,7 +185,11 @@ export default function TeacherPrivateHome({ navigation }) {
               });
             }}
             bg="#fdddf3"
-            onPress={() => navigation.navigate("TeacherClasses")}
+            onPress={() =>
+              navigation.navigate("TeacherClasses", {
+                classId: cls._id,
+              })
+            }
           />
         ))}
       </ScrollView>

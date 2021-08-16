@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -11,8 +11,30 @@ import CourseList from "../../container/CourseList";
 import { useNavigation } from "@react-navigation/native";
 import AddBtn from "../../components/AddBtn";
 import ViewBtn from "../../components/ViewBtn";
+import { useDispatch, useSelector } from "react-redux";
+import { retrieveLessons } from "../../actions/teacher.lesson.actions";
 
-export default function TeacherClasses({ navigation }) {
+export default function TeacherClasses({ route, navigation }) {
+  const { classId } = route.params;
+
+  const [currentClass, setCurrentClass] = useState(classId);
+  const teacherListLesson = useSelector((state) => state.teacherListLesson);
+  const { loading, lessons, error } = teacherListLesson;
+  // const teacherDelClass = useSelector((state) => state.teacherDeleteClass);
+  // const { loading: delLoading, error: delError } = teacherDelClass;
+  const dispatch = useDispatch();
+
+  // const handleDelete = (id) => {
+  //   dispatch(deleteClass(id));
+  // };
+
+  useEffect(() => {
+    if (classId) {
+      dispatch(retrieveLessons(classId));
+    }
+    //else move to home
+  }, []);
+  useEffect(() => {}, [lessons, classId]);
   return (
     <ImageBackground
       source={require("../../images/cat.png")}
@@ -73,7 +95,12 @@ export default function TeacherClasses({ navigation }) {
         }}>
         <TouchableOpacity
           opacity={0.5}
-          onPress={() => navigation.navigate("TeacherAddLesson")}>
+          onPress={() =>
+            navigation.navigate("TeacherAddLesson", {
+              editItem: null,
+              classId: currentClass,
+            })
+          }>
           <AddBtn title="Add new Lesson" />
         </TouchableOpacity>
       </View>
@@ -91,55 +118,26 @@ export default function TeacherClasses({ navigation }) {
         alwaysOpen={500}
         scrollViewProps={{ showsVerticalScrollIndicator: false }}>
         <View style={{ marginTop: 40 }}>
-          <CourseList
-            onPress={() => navigation.navigate("Xd")}
-            img={require("../../images/xd.png")}
-            title="Mechanics 1"
-            bg="#fdddf3"
-            onPress={() => navigation.navigate("TeacherLessons")}
-          />
-          <CourseList
-            img={require("../../images/sketch.png")}
-            title="Sketch shortcuts and tricks"
-            bg="#fef8e3"
-            title="Mechanics 1"
-            onPress={() => navigation.navigate("TeacherLessons")}
-          />
-          <CourseList
-            img={require("../../images/ae.png")}
-            title="UI Motion Design in After Effects"
-            bg="#fcf2ff"
-            title="Mechanics 1"
-            onPress={() => navigation.navigate("TeacherLessons")}
-          />
-          <CourseList
-            img={require("../../images/f.png")}
-            title="Figma Essentials"
-            bg="#fff0ee"
-            title="Mechanics 1"
-            onPress={() => navigation.navigate("TeacherLessons")}
-          />
-          <CourseList
-            img={require("../../images/ps.png")}
-            title="Adobe Photoshop. Retouching"
-            bg="#fdddf3"
-            title="Mechanics 1"
-            onPress={() => navigation.navigate("TeacherLessons")}
-          />
-          <CourseList
-            img={require("../../images/sketch.png")}
-            title="Sketch shortcuts and tricks"
-            bg="#fef8e3"
-            title="Mechanics 1"
-            onPress={() => navigation.navigate("TeacherLessons")}
-          />
-          <CourseList
-            img={require("../../images/ae.png")}
-            title="UI Motion Design in After Effects"
-            bg="#fcf2ff"
-            title="Mechanics 1"
-            onPress={() => navigation.navigate("TeacherLessons")}
-          />
+          {lessons?.map((lesson) => (
+            <CourseList
+              key={lesson._id}
+              img={require("../../images/xd.png")}
+              title={lesson.title}
+              deleteAction={() => handleDelete(lesson._id)}
+              editAction={() => {
+                navigation.navigate("TeacherAddLesson", {
+                  editItem: lesson,
+                  classId: currentClass,
+                });
+              }}
+              bg="#fef8e3"
+              onPress={() =>
+                navigation.navigate("TeacherResources", {
+                  lessonId: lesson._id,
+                })
+              }
+            />
+          ))}
         </View>
       </Modalize>
     </ImageBackground>

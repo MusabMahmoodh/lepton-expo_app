@@ -1,11 +1,6 @@
-import { RECORDING_OPTION_IOS_OUTPUT_FORMAT_ENHANCEDAC3 } from "expo-av/build/Audio";
 import http from "../http-common";
-import { getAuthAsyncStorage } from "./getAuthAsyncStorage";
+import { getToken } from "./getAuthAsyncStorage";
 
-const getToken = async () => {
-  const { user } = await getAuthAsyncStorage();
-  return `Bearer ${user.token}`;
-};
 const getAllClasses = async () => {
   return http.get("/class", {
     headers: { authorization: await getToken() },
