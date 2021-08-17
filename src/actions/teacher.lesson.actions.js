@@ -13,6 +13,10 @@ import {
   TEACHER_UPDATE_LESSON_SUCCESS,
   TEACHER_UPDATE_LESSON_FAIL,
   TEACHER_UPDATE_LESSON_RESET,
+  TEACHER_ADD_STUDENT_TO_LESSON_REQUEST,
+  TEACHER_ADD_STUDENT_TO_LESSON_SUCCESS,
+  TEACHER_ADD_STUDENT_TO_LESSON_FAIL,
+  // TEACHER_UPDATE_LESSON_RESET,
   TEACHER_GET_LESSON_REQUEST,
   TEACHER_GET_LESSON_SUCCESS,
   TEACHER_GET_LESSON_FAIL,
@@ -142,6 +146,28 @@ export const updateLesson = (id, data) => async (dispatch, getState) => {
   } catch (err) {
     dispatch({
       type: TEACHER_UPDATE_LESSON_FAIL,
+      payload: err.response.data.message,
+    });
+  }
+};
+export const addStudentToLesson = (id, data) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TEACHER_ADD_STUDENT_TO_LESSON_REQUEST,
+    });
+
+    const res = await TeacherLessonService.addStudentToLesson(id, data);
+
+    dispatch({
+      type: TEACHER_ADD_STUDENT_TO_LESSON_SUCCESS,
+      payload: res.data,
+    });
+
+    // alert("Added");
+  } catch (err) {
+    alert(err.respond.data.message);
+    dispatch({
+      type: TEACHER_ADD_STUDENT_TO_LESSON_FAIL,
       payload: err.response.data.message,
     });
   }

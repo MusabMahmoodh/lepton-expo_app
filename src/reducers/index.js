@@ -15,6 +15,7 @@ import {
   teacherCreateLessonReducer,
   teacherUpdateLessonReducer,
   teacherDeleteLessonReducer,
+  teacherAddStudentToLessonReducer,
 } from "./lessons";
 import {
   teacherListStudentsReducer,
@@ -36,6 +37,7 @@ const reducers = combineReducers({
   teacherGetLesson: teacherGetLessonReducer,
   teacherCreateLesson: teacherCreateLessonReducer,
   teacherUpdateLesson: teacherUpdateLessonReducer,
+  teacherAddStudentToLesson: teacherAddStudentToLessonReducer,
   teacherDeleteLesson: teacherDeleteLessonReducer,
   //
   teacherListStudent: teacherListStudentsReducer,

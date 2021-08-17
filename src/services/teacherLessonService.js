@@ -25,6 +25,12 @@ const updateLesson = async (id, data) => {
     headers: { authorization: await getToken() },
   });
 };
+
+const addStudentToLesson = async (id, data) => {
+  return http.post(`/lesson/student/${id}`, data, {
+    headers: { authorization: await getToken() },
+  });
+};
 const deleteLesson = async (id) => {
   return http.delete(`/lesson/${id}`, {
     headers: { authorization: await getToken() },
@@ -37,6 +43,7 @@ const TeacherLessonsService = {
   createLesson,
   updateLesson,
   deleteLesson,
+  addStudentToLesson,
   //   findByTitle,
 };
 

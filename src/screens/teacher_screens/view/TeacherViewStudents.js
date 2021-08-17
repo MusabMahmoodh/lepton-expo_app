@@ -19,12 +19,18 @@ import SearchableDropdown from "react-native-searchable-dropdown";
 import { Tab, TabView } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import { retrieveStudents } from "../../../actions/teacher.student.actions";
-import { getLesson } from "../../../actions/teacher.lesson.actions";
+import {
+  addStudentToLesson,
+  getLesson,
+} from "../../../actions/teacher.lesson.actions";
 
 //Item array for the dropdown
 export default function TeacherViewStudent({ route, navigation }) {
   const { lessonId } = route.params;
   const [index, setIndex] = React.useState(0);
+
+  const [notSelected, setNotSelected] = React.useState([]);
+  const [selected, setSelected] = React.useState([]);
 
   const teacherListStudent = useSelector((state) => state.teacherListStudent);
   const { loading, students, error } = teacherListStudent;
@@ -38,8 +44,12 @@ export default function TeacherViewStudent({ route, navigation }) {
 
   const dispatch = useDispatch();
 
-  const handleDelete = (id) => {
-    // dispatch(deleteStudent(id));
+  const handleAddNewStudent = (std) => {
+    const addSt = {
+      period: std.period,
+      student: std.student._id,
+    };
+    dispatch(addStudentToLesson(lessonId, addSt));
   };
 
   useEffect(() => {
@@ -49,7 +59,27 @@ export default function TeacherViewStudent({ route, navigation }) {
     dispatch(getLesson(lessonId));
     //else move to home
   }, []);
-  useEffect(() => {}, [students, currentLesson]);
+  useEffect(() => {
+    setSelected(currentLesson?.students);
+    console.log("Updaaintg");
+    var tempNotSelected = [];
+
+    students?.forEach((st) => {
+      currentLesson?.students?.forEach((stdObj) => {
+        if (stdObj?.student?._id === st._id) {
+          return;
+        }
+      });
+      tempNotSelected.push({
+        student: st,
+        period: 4, //in weeks
+      });
+    });
+    setNotSelected(tempNotSelected);
+  }, [students, currentLesson]);
+  // useEffect(() => {
+
+  // }, [selected]);
   return (
     <View
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -90,26 +120,16 @@ export default function TeacherViewStudent({ route, navigation }) {
         <TabView value={index} onChange={setIndex}>
           <TabView.Item style={{ width: "100%" }}>
             <View style={styles.inner}>
-              {students?.map((std) => (
+              {console.log("selected", selected)}
+              {selected?.map((std) => (
                 <ListItem key={std._id} bottomDivider>
                   <Avatar rounded title="MD" />
 
                   <ListItem.Content>
-                    <ListItem.Title>{std.indexNumber}</ListItem.Title>
-                    <ListItem.Subtitle>{std.name}</ListItem.Subtitle>
+                    <ListItem.Title>{std?.student?.indexNumber}</ListItem.Title>
+                    <ListItem.Subtitle>{std?.student?.name}</ListItem.Subtitle>
                   </ListItem.Content>
                   <ListItem.Content style={{ flexDirection: "row" }}>
-                    <AntDesign
-                      name="edit"
-                      size={24}
-                      color="black"
-                      style={{ marginRight: 28 }}
-                      onPress={() => {
-                        navigation.navigate("TeacherAddStudent", {
-                          editItem: std,
-                        });
-                      }}
-                    />
                     <AntDesign
                       name="delete"
                       size={24}
@@ -123,17 +143,22 @@ export default function TeacherViewStudent({ route, navigation }) {
           </TabView.Item>
           <TabView.Item style={{ width: "100%" }}>
             <View style={styles.inner}>
-              {students?.map((std) => (
-                <ListItem key={std._id} bottomDivider>
+              {notSelected?.map((std) => (
+                <ListItem key={std?.student?._id} bottomDivider>
                   <Avatar rounded title="MD" />
 
                   <ListItem.Content>
-                    <ListItem.Title>{std.indexNumber}</ListItem.Title>
-                    <ListItem.Subtitle>{std.name}</ListItem.Subtitle>
+                    <ListItem.Title>{std?.student?.indexNumber}</ListItem.Title>
+                    <ListItem.Subtitle>{std?.student?.name}</ListItem.Subtitle>
                   </ListItem.Content>
                   <ListItem.Content style={{ flexDirection: "row" }}>
                     <ListItem.Content style={{ flexDirection: "row" }}>
-                      <AntDesign name="pluscircle" size={24} color="green" />
+                      <AntDesign
+                        name="pluscircle"
+                        size={24}
+                        color="green"
+                        onPress={() => handleAddNewStudent(std)}
+                      />
                     </ListItem.Content>
                   </ListItem.Content>
                 </ListItem>
