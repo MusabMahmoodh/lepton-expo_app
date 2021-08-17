@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Text,
   ImageBackground,
@@ -17,84 +17,39 @@ import { Modalize } from "react-native-modalize";
 import { ListItem, Avatar } from "react-native-elements";
 import SearchableDropdown from "react-native-searchable-dropdown";
 import { Tab, TabView } from "react-native-elements";
+import { useDispatch, useSelector } from "react-redux";
+import { retrieveStudents } from "../../../actions/teacher.student.actions";
+import { getLesson } from "../../../actions/teacher.lesson.actions";
 
-const list = [
-  {
-    name: "Amy Farha",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    subtitle: "Vice President",
-  },
-  {
-    name: "Chris Jackson",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    subtitle: "Vice Chairman",
-  },
-  {
-    name: "Amy Farha",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    subtitle: "Vice President",
-  },
-  {
-    name: "Chris Jackson",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    subtitle: "Vice Chairman",
-  },
-  {
-    name: "Amy Farha",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    subtitle: "Vice President",
-  },
-  {
-    name: "Chris Jackson",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    subtitle: "Vice Chairman",
-  },
-  {
-    name: "Amy Farha",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    subtitle: "Vice President",
-  },
-  {
-    name: "Chris Jackson",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    subtitle: "Vice Chairman",
-  },
-  {
-    name: "Amy Farha",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    subtitle: "Vice President",
-  },
-  {
-    name: "Chris Jackson",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    subtitle: "Vice Chairman",
-  },
-  {
-    name: "Amy Farha",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    subtitle: "Vice President",
-  },
-  {
-    name: "Chris Jackson",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    subtitle: "Vice Chairman",
-  },
-];
 //Item array for the dropdown
-export default function TeacherViewStudent({ navigation }) {
+export default function TeacherViewStudent({ route, navigation }) {
+  const { lessonId } = route.params;
   const [index, setIndex] = React.useState(0);
+
+  const teacherListStudent = useSelector((state) => state.teacherListStudent);
+  const { loading, students, error } = teacherListStudent;
+  const teacherGetLesson = useSelector((state) => state.teacherGetLesson);
+  const {
+    loading: loadingGetLsn,
+    success: successGetLsn,
+    error: errorGetLsn,
+    currentLesson,
+  } = teacherGetLesson;
+
+  const dispatch = useDispatch();
+
+  const handleDelete = (id) => {
+    // dispatch(deleteStudent(id));
+  };
+
+  useEffect(() => {
+    if (!students) {
+      dispatch(retrieveStudents());
+    }
+    dispatch(getLesson(lessonId));
+    //else move to home
+  }, []);
+  useEffect(() => {}, [students, currentLesson]);
   return (
     <View
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -103,12 +58,14 @@ export default function TeacherViewStudent({ navigation }) {
         style={{
           fontSize: 30,
 
-          alignSelf: "center",
+          textAlign: "center",
           marginBottom: 40,
           marginTop: 40,
           color: "white",
         }}>
-        Students of Mechanics 1
+        Students of
+        {"\n"}
+        {currentLesson?.title}
       </Text>
 
       <Modalize
@@ -127,19 +84,19 @@ export default function TeacherViewStudent({ navigation }) {
         <Tab value={index} onChange={setIndex}>
           <Tab.Item title="In Class" />
           <Tab.Item title="Out class" />
-          <Tab.Item title="New Requests" />
+          {/* <Tab.Item title="New Requests" /> */}
         </Tab>
 
         <TabView value={index} onChange={setIndex}>
           <TabView.Item style={{ width: "100%" }}>
             <View style={styles.inner}>
-              {list.map((l, i) => (
-                <ListItem key={i} bottomDivider>
+              {students?.map((std) => (
+                <ListItem key={std._id} bottomDivider>
                   <Avatar rounded title="MD" />
 
                   <ListItem.Content>
-                    <ListItem.Title>{l.name}</ListItem.Title>
-                    {/* <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle> */}
+                    <ListItem.Title>{std.indexNumber}</ListItem.Title>
+                    <ListItem.Subtitle>{std.name}</ListItem.Subtitle>
                   </ListItem.Content>
                   <ListItem.Content style={{ flexDirection: "row" }}>
                     <AntDesign
@@ -147,8 +104,18 @@ export default function TeacherViewStudent({ navigation }) {
                       size={24}
                       color="black"
                       style={{ marginRight: 28 }}
+                      onPress={() => {
+                        navigation.navigate("TeacherAddStudent", {
+                          editItem: std,
+                        });
+                      }}
                     />
-                    <AntDesign name="delete" size={24} color="red" />
+                    <AntDesign
+                      name="delete"
+                      size={24}
+                      color="red"
+                      onPress={() => handleDelete(std._id)}
+                    />
                   </ListItem.Content>
                 </ListItem>
               ))}
@@ -156,22 +123,24 @@ export default function TeacherViewStudent({ navigation }) {
           </TabView.Item>
           <TabView.Item style={{ width: "100%" }}>
             <View style={styles.inner}>
-              {list.map((l, i) => (
-                <ListItem key={i} bottomDivider>
+              {students?.map((std) => (
+                <ListItem key={std._id} bottomDivider>
                   <Avatar rounded title="MD" />
 
                   <ListItem.Content>
-                    <ListItem.Title>{l.name}</ListItem.Title>
-                    {/* <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle> */}
+                    <ListItem.Title>{std.indexNumber}</ListItem.Title>
+                    <ListItem.Subtitle>{std.name}</ListItem.Subtitle>
                   </ListItem.Content>
                   <ListItem.Content style={{ flexDirection: "row" }}>
-                    <AntDesign name="pluscircle" size={24} color="green" />
+                    <ListItem.Content style={{ flexDirection: "row" }}>
+                      <AntDesign name="pluscircle" size={24} color="green" />
+                    </ListItem.Content>
                   </ListItem.Content>
                 </ListItem>
               ))}
             </View>
           </TabView.Item>
-          <TabView.Item style={{ width: "100%" }}>
+          {/* <TabView.Item style={{ width: "100%" }}>
             <View style={styles.inner}>
               {list.map((l, i) => (
                 <ListItem key={i} bottomDivider>
@@ -179,7 +148,7 @@ export default function TeacherViewStudent({ navigation }) {
 
                   <ListItem.Content>
                     <ListItem.Title>{l.name}</ListItem.Title>
-                    {/* <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle> */}
+                    <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
                   </ListItem.Content>
                   <ListItem.Content style={{ flexDirection: "row" }}>
                     <AntDesign name="eye" size={24} color="blue" />
@@ -187,7 +156,7 @@ export default function TeacherViewStudent({ navigation }) {
                 </ListItem>
               ))}
             </View>
-          </TabView.Item>
+          </TabView.Item> */}
         </TabView>
       </Modalize>
     </View>

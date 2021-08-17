@@ -95,23 +95,24 @@ export const deleteLesson = (id) => async (dispatch, getState) => {
     });
   }
 };
-// // export const getQn = (id) => async (dispatch) => {
-// //   try {
-// //     dispatch({ type: GET_QN_REQUEST });
-// //     const res = await TeacherLessonService.getQnById(id);
+export const getLesson = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: TEACHER_GET_LESSON_REQUEST });
+    const res = await TeacherLessonService.getLessonById(id);
+    console.log(res.data.lesson);
 
-// //     dispatch({
-// //       type: GET_QN_SUCCESS,
-// //       payload: res.data,
-// //     });
-// //   } catch (err) {
-// //     console.log(err);
-// //     dispatch({
-// //       type: GET_QN_FAIL,
-// //       payload: err.message,
-// //     });
-// //   }
-// // };
+    dispatch({
+      type: TEACHER_GET_LESSON_SUCCESS,
+      payload: res.data.lesson,
+    });
+  } catch (err) {
+    alert(err.response.data.message);
+    dispatch({
+      type: TEACHER_GET_LESSON_FAIL,
+      payload: err.response.data.message,
+    });
+  }
+};
 
 export const updateLesson = (id, data) => async (dispatch, getState) => {
   try {

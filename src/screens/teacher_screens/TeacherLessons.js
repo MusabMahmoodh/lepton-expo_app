@@ -87,7 +87,11 @@ export default function TeacherLessons({ route, navigation }) {
         }}>
         <TouchableOpacity
           opacity={0.5}
-          onPress={() => navigation.navigate("TeacherViewStudent")}>
+          onPress={() =>
+            navigation.navigate("TeacherViewStudent", {
+              lessonId,
+            })
+          }>
           <ViewBtn title="View students taking lesson" />
         </TouchableOpacity>
       </View>

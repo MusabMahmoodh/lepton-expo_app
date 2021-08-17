@@ -7,8 +7,10 @@ const getAllLessonsOfAClass = async (id) => {
   });
 };
 
-const getLessonById = (id) => {
-  return http.get(`/questions/${id}`);
+const getLessonById = async (id) => {
+  return http.get(`/lesson/${id}`, {
+    headers: { authorization: await getToken() },
+  });
 };
 
 //title and class should be sent--> send class id from params

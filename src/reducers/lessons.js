@@ -45,7 +45,12 @@ export function teacherGetLessonReducer(currentLesson = {}, action) {
 
   switch (type) {
     case TEACHER_GET_LESSON_REQUEST:
-      return { loading: true, currentLesson: {}, error: null, success: false };
+      return {
+        loading: true,
+        currentLesson: null,
+        error: null,
+        success: false,
+      };
 
     case TEACHER_GET_LESSON_SUCCESS:
       return {
