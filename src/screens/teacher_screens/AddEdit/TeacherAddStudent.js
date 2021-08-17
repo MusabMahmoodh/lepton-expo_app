@@ -21,9 +21,13 @@ import {
   updateClass,
 } from "../../../actions/teacher.class.actions";
 import generateRandAlphaNum from "../../../utils/generateRandAlphaNum";
-import { createStudent } from "../../../actions/teacher.student.actions";
+import {
+  createStudent,
+  getStudent,
+  updateStudent,
+} from "../../../actions/teacher.student.actions";
 export default function TeacherAddStudent({ route, navigation }) {
-  // const { editItem } = route.params;
+  const { editItem } = route.params;
 
   const [indexNumber, setIndexNo] = useState("");
   const [name, setName] = useState("");
@@ -38,18 +42,27 @@ export default function TeacherAddStudent({ route, navigation }) {
   );
   const { loading, success, error } = teacherCreateStudent;
 
-  const teacherUpdateClass = useSelector((state) => state.teacherUpdateClass);
-  // const {
-  //   loading: loadingUpdate,
-  //   success: successUpdate,
-  //   error: errorUpdate,
-  // } = teacherUpdateClass;
+  const teacherUpdateStudent = useSelector(
+    (state) => state.teacherUpdateStudent
+  );
+  const {
+    loading: loadingUpdate,
+    success: successUpdate,
+    error: errorUpdate,
+  } = teacherUpdateStudent;
+  const teacherGetStudent = useSelector((state) => state.teacherGetStudent);
+  const {
+    loading: loadingGetStd,
+    success: successGetStd,
+    error: errorGetStd,
+    currentStudent,
+  } = teacherGetStudent;
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
     //edit
-    // if (!editItem && indexNumber.length > 3) {
-    if (indexNumber.length > 1 && name.length && classToken) {
+
+    if (!editItem && indexNumber.length > 1 && name.length && classToken) {
       dispatch(
         createStudent({
           indexNumber,
@@ -63,21 +76,41 @@ export default function TeacherAddStudent({ route, navigation }) {
       );
     }
 
-    // editItem && dispatch(updateClass(editItem._id, { indexNumber }));
+    editItem &&
+      dispatch(
+        updateStudent(editItem._id, {
+          indexNumber,
+          name,
+          school,
+          district,
+          mobileNumber,
+          classToken,
+          singleDevice,
+        })
+      );
   };
-  // useEffect(() => {
-  //   if (editItem) {
-  //     setIndexNo(editItem.indexNumber);
-  //     // setDescription(editItem.description);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (editItem) {
+      dispatch(getStudent(editItem._id));
+    }
+  }, []);
+  useEffect(() => {
+    if (currentStudent) {
+      setIndexNo(currentStudent.indexNumber);
+      setName(currentStudent.name);
+      setSchool(currentStudent.school);
+      setDistrict(currentStudent.mobileNumber);
+      setMobileNumber(currentStudent.indexNumber);
+      setClassToken(currentStudent.classToken);
+      setSingleDevice(currentStudent.singleDevice);
+    }
+  }, [currentStudent]);
   useEffect(() => {
     // if (success || successUpdate) {
     if (success) {
       navigation.navigate("TeacherHome");
     }
-    // }, [success, error, successUpdate, errorUpdate]);
-  }, [success]);
+  }, [success, error, successUpdate, errorUpdate]);
 
   // useEffect(() => {
   //   if (success) {
@@ -97,8 +130,7 @@ export default function TeacherAddStudent({ route, navigation }) {
           marginTop: 40,
           color: "white",
         }}>
-        Add new Student
-        {/* {editItem ? "Update Class" : "Add new Class"} */}
+        {editItem ? "Update Student" : "Add new Student"}
       </Text>
 
       <Modalize
@@ -354,7 +386,7 @@ export default function TeacherAddStudent({ route, navigation }) {
               style={{
                 color: "white",
               }}>
-              {/* {editItem ? "Update" : "Save"} */}
+              {editItem ? "Update" : "Save"}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity

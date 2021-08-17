@@ -63,7 +63,11 @@ export default function TeacherViewStudent({ navigation }) {
       </Text>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate("TeacherAddStudent")}
+        onPress={() =>
+          navigation.navigate("TeacherAddStudent", {
+            editItem: null,
+          })
+        }
         style={{
           flexDirection: "row",
           backgroundColor: "#f58084",
@@ -106,6 +110,11 @@ export default function TeacherViewStudent({ navigation }) {
                 size={24}
                 color="black"
                 style={{ marginRight: 28 }}
+                onPress={() => {
+                  navigation.navigate("TeacherAddStudent", {
+                    editItem: std,
+                  });
+                }}
               />
               <AntDesign
                 name="delete"

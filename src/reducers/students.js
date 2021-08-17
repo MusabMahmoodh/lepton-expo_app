@@ -45,7 +45,12 @@ export function teacherGetStudentReducer(currentStudent = {}, action) {
 
   switch (type) {
     case TEACHER_GET_STUDENT_REQUEST:
-      return { loading: true, currentStudent: {}, error: null, success: false };
+      return {
+        loading: true,
+        currentStudent: null,
+        error: null,
+        success: false,
+      };
 
     case TEACHER_GET_STUDENT_SUCCESS:
       return {

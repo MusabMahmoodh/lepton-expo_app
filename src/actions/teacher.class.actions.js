@@ -45,7 +45,7 @@ export const createClass = (data) => async (dispatch, getState) => {
       type: TEACHER_CREATE_CLASS_RESET,
     });
   } catch (err) {
-    alert(err);
+    alert(err.response.data.message);
     dispatch({
       type: TEACHER_CREATE_CLASS_FAIL,
       payload: err.response.data.message,
@@ -62,6 +62,7 @@ export const retrieveClasses = () => async (dispatch) => {
       payload: res.data.classes,
     });
   } catch (err) {
+    alert(err.response.data.message);
     dispatch({
       type: TEACHER_LIST_CLASSES_FAIL,
       payload: err.response.data.message,
@@ -87,7 +88,7 @@ export const deleteClass = (id) => async (dispatch, getState) => {
 
     dispatch({ type: TEACHER_LIST_CLASSES_SUCCESS, payload: updatedClasses });
   } catch (err) {
-    alert(err);
+    alert(err.response.data.message);
     dispatch({
       type: TEACHER_DELETE_CLASS_FAIL,
       payload: err.response.data.message,
@@ -138,6 +139,7 @@ export const updateClass = (id, data) => async (dispatch, getState) => {
       type: TEACHER_UPDATE_CLASS_RESET,
     });
   } catch (err) {
+    alert(err.response.data.message);
     dispatch({
       type: TEACHER_UPDATE_CLASS_FAIL,
       payload: err.response.data.message,

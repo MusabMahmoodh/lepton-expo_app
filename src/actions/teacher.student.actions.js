@@ -63,6 +63,7 @@ export const retrieveStudents = () => async (dispatch) => {
       payload: res.data.students,
     });
   } catch (err) {
+    alert(err.response.data.message);
     dispatch({
       type: TEACHER_LIST_STUDENTS_FAIL,
       payload: err.response.data.message,
@@ -95,23 +96,24 @@ export const deleteStudent = (id) => async (dispatch, getState) => {
     });
   }
 };
-// export const getQn = (id) => async (dispatch) => {
-//   try {
-//     dispatch({ type: GET_QN_REQUEST });
-//     const res = await TeacherStudentService.getQnById(id);
+export const getStudent = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: TEACHER_GET_STUDENT_REQUEST });
+    const res = await TeacherStudentService.getStudentById(id);
 
-//     dispatch({
-//       type: GET_QN_SUCCESS,
-//       payload: res.data,
-//     });
-//   } catch (err) {
-//     console.log(err);
-//     dispatch({
-//       type: GET_QN_FAIL,
-//       payload: err.message,
-//     });
-//   }
-// };
+    dispatch({
+      type: TEACHER_GET_STUDENT_SUCCESS,
+
+      payload: res.data.student,
+    });
+  } catch (err) {
+    alert(err.response.data.message);
+    dispatch({
+      type: TEACHER_GET_STUDENT_FAIL,
+      payload: err.response.data.message,
+    });
+  }
+};
 
 export const updateStudent = (id, data) => async (dispatch, getState) => {
   try {
@@ -128,17 +130,18 @@ export const updateStudent = (id, data) => async (dispatch, getState) => {
     let newStudents = students.filter((std) => std._id !== id);
     dispatch({
       type: TEACHER_UPDATE_STUDENT_SUCCESS,
-      payload: res.data.StudentEdited,
+      payload: res.data.studentEdited,
     });
     dispatch({
-      type: TEACHER_LIST_STUDENT_SUCCESS,
-      payload: [res.data.StudentEdited, ...newStudents],
+      type: TEACHER_LIST_STUDENTS_SUCCESS,
+      payload: [res.data.studentEdited, ...newStudents],
     });
     alert("Updated successfully");
     dispatch({
       type: TEACHER_UPDATE_STUDENT_RESET,
     });
   } catch (err) {
+    alert(err.response.data.message);
     dispatch({
       type: TEACHER_UPDATE_STUDENT_FAIL,
       payload: err.response.data.message,
